@@ -1,75 +1,54 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
 
-
 /* ==================================================
    RESET
 ================================================== */
 
 * {
-
     margin: 0;
-
     padding: 0;
-
     box-sizing: border-box;
-
 }
-
 
 html {
-
     scroll-behavior: smooth;
-
 }
 
-
 body {
-
     min-height: 100vh;
-
     font-family: 'Poppins', sans-serif;
-
     color: white;
-
     overflow-x: hidden;
 
-
     background:
-
         radial-gradient(
             circle at 15% 15%,
             rgba(255, 70, 140, .22),
             transparent 30%
         ),
-
         radial-gradient(
             circle at 85% 80%,
             rgba(140, 70, 255, .22),
             transparent 32%
         ),
-
         linear-gradient(
             135deg,
             #100014,
             #230025,
             #120018
         );
-
 }
-
 
 /* ==================================================
    BACKGROUND LIGHTS
 ================================================== */
 
 body::before {
-
     content: "";
 
     position: fixed;
 
     width: 450px;
-
     height: 450px;
 
     border-radius: 50%;
@@ -79,24 +58,19 @@ body::before {
     filter: blur(100px);
 
     top: -200px;
-
     left: -180px;
 
     z-index: -2;
 
     animation: moveGlow 10s infinite alternate ease-in-out;
-
 }
 
-
 body::after {
-
     content: "";
 
     position: fixed;
 
     width: 450px;
-
     height: 450px;
 
     border-radius: 50%;
@@ -106,18 +80,14 @@ body::after {
     filter: blur(100px);
 
     right: -180px;
-
     bottom: -200px;
 
     z-index: -2;
 
     animation: moveGlow2 12s infinite alternate ease-in-out;
-
 }
 
-
 @keyframes moveGlow {
-
     from {
         transform: translate(0, 0);
     }
@@ -125,12 +95,9 @@ body::after {
     to {
         transform: translate(100px, 80px);
     }
-
 }
 
-
 @keyframes moveGlow2 {
-
     from {
         transform: translate(0, 0);
     }
@@ -138,62 +105,42 @@ body::after {
     to {
         transform: translate(-100px, -80px);
     }
-
 }
-
 
 /* ==================================================
    SCREEN
 ================================================== */
 
 .screen {
-
     display: none;
 
     min-height: 100vh;
-
     width: 100%;
 
     padding: 30px 18px;
 
     align-items: center;
-
     justify-content: center;
 
     position: relative;
-
 }
-
 
 .screen.active {
-
     display: flex;
-
     animation: screenIn .8s ease;
-
 }
 
-
 @keyframes screenIn {
-
     from {
-
         opacity: 0;
-
         transform: scale(.97);
-
     }
 
     to {
-
         opacity: 1;
-
         transform: scale(1);
-
     }
-
 }
-
 
 /* ==================================================
    GLASS CARD
@@ -201,9 +148,7 @@ body::after {
 
 .card,
 .game-card {
-
     width: 100%;
-
     max-width: 600px;
 
     padding: 48px 38px;
@@ -212,86 +157,59 @@ body::after {
 
     border-radius: 35px;
 
-
     background:
-
         linear-gradient(
             145deg,
             rgba(255,255,255,.13),
             rgba(255,255,255,.035)
         );
 
-
-    border:
-
-        1px solid
-        rgba(255,255,255,.17);
-
+    border: 1px solid rgba(255,255,255,.17);
 
     backdrop-filter: blur(25px);
 
-
     box-shadow:
-
-        0 30px 90px
-        rgba(0,0,0,.45),
-
-        inset 0 1px 1px
-        rgba(255,255,255,.2);
-
+        0 30px 90px rgba(0,0,0,.45),
+        inset 0 1px 1px rgba(255,255,255,.2);
 
     position: relative;
 
     overflow: hidden;
-
 }
-
 
 .card::before,
 .game-card::before {
-
     content: "";
 
     position: absolute;
 
     width: 180px;
-
     height: 180px;
 
     border-radius: 50%;
 
-    background:
-        rgba(255,70,140,.15);
+    background: rgba(255,70,140,.15);
 
     filter: blur(45px);
 
     top: -100px;
-
     right: -70px;
-
 }
-
 
 /* ==================================================
    TYPOGRAPHY
 ================================================== */
 
 h1 {
+    font-family: 'Playfair Display', serif;
 
-    font-family:
-        'Playfair Display',
-        serif;
-
-    font-size:
-        clamp(34px, 7vw, 55px);
+    font-size: clamp(34px, 7vw, 55px);
 
     line-height: 1.2;
 
     margin-bottom: 20px;
 
-
     background:
-
         linear-gradient(
             90deg,
             #ffffff,
@@ -299,41 +217,27 @@ h1 {
             #ffffff
         );
 
-
     -webkit-background-clip: text;
-
     -webkit-text-fill-color: transparent;
-
 }
 
-
 h2 {
-
-    font-family:
-        'Playfair Display',
-        serif;
+    font-family: 'Playfair Display', serif;
 
     font-size: 28px;
 
     margin: 15px 0;
-
 }
 
-
 p {
-
-    color:
-        rgba(255,255,255,.87);
+    color: rgba(255,255,255,.87);
 
     font-size: 16px;
 
     line-height: 1.9;
-
 }
 
-
 .small-title {
-
     font-size: 11px;
 
     letter-spacing: 4px;
@@ -343,24 +247,17 @@ p {
     color: #ff9fc2;
 
     margin-bottom: 15px;
-
 }
-
 
 .soft-text {
-
-    color:
-        rgba(255,255,255,.62);
-
+    color: rgba(255,255,255,.62);
 }
-
 
 /* ==================================================
    HEART
 ================================================== */
 
 .emoji {
-
     font-size: 70px;
 
     margin-bottom: 15px;
@@ -372,12 +269,9 @@ p {
         );
 
     animation: heartbeat 1.5s infinite;
-
 }
 
-
 .big-heart {
-
     font-size: 95px;
 
     filter:
@@ -387,46 +281,32 @@ p {
         );
 
     animation: heartbeat 1.4s infinite;
-
 }
 
-
 @keyframes heartbeat {
-
     0%,
     100% {
-
         transform: scale(1);
-
     }
 
     15% {
-
         transform: scale(1.15);
-
     }
 
     30% {
-
         transform: scale(1);
-
     }
 
     45% {
-
         transform: scale(1.10);
-
     }
-
 }
-
 
 /* ==================================================
    INPUT
 ================================================== */
 
 input {
-
     width: 100%;
 
     padding: 17px 22px;
@@ -435,12 +315,9 @@ input {
 
     border-radius: 50px;
 
-    border:
-        1px solid
-        rgba(255,255,255,.2);
+    border: 1px solid rgba(255,255,255,.2);
 
-    background:
-        rgba(0,0,0,.22);
+    background: rgba(0,0,0,.22);
 
     color: white;
 
@@ -451,37 +328,25 @@ input {
     outline: none;
 
     transition: .3s;
-
 }
-
 
 input::placeholder {
-
-    color:
-        rgba(255,255,255,.5);
-
+    color: rgba(255,255,255,.5);
 }
-
 
 input:focus {
-
-    border-color:
-        #ff72a5;
+    border-color: #ff72a5;
 
     box-shadow:
-
         0 0 25px
         rgba(255,70,140,.3);
-
 }
-
 
 /* ==================================================
    BUTTON
 ================================================== */
 
 button {
-
     border: none;
 
     cursor: pointer;
@@ -494,120 +359,86 @@ button {
 
     color: white;
 
-    font-family:
-        'Poppins',
-        sans-serif;
+    font-family: 'Poppins', sans-serif;
 
     font-size: 15px;
 
     font-weight: 600;
 
-
     background:
-
         linear-gradient(
             135deg,
             #ff4f91,
             #a84dff
         );
 
-
     box-shadow:
-
         0 12px 35px
         rgba(255,60,140,.28);
 
-
-    transition:
-        .3s;
-
+    transition: .3s;
 }
 
-
 button:hover {
-
     transform:
         translateY(-3px)
         scale(1.03);
 
     box-shadow:
-
         0 18px 45px
         rgba(255,60,140,.45);
-
 }
-
 
 button:active {
-
-    transform:
-        scale(.95);
-
+    transform: scale(.95);
 }
-
 
 button span {
-
     margin-left: 8px;
-
 }
-
 
 /* ==================================================
    MESSAGE
 ================================================== */
 
 .message {
-
     min-height: 28px;
 
     margin-top: 14px;
 
     color: #ffd5e4;
-
 }
-
 
 /* ==================================================
    SMALL DECORATION
 ================================================== */
 
 .tiny-hearts {
-
     margin-top: 25px;
 
     color: #ff8eb6;
 
     opacity: .65;
-
 }
-
 
 .sparkle,
 .final-stars {
-
     color: #ffb7d2;
 
     letter-spacing: 10px;
 
     margin-bottom: 15px;
-
 }
-
 
 /* ==================================================
    GAME
 ================================================== */
 
 .game-card {
-
     max-width: 700px;
-
 }
 
-
 #game-area {
-
     width: 100%;
 
     height: 400px;
@@ -620,83 +451,54 @@ button span {
 
     border-radius: 28px;
 
-
     background:
-
         radial-gradient(
             circle at center,
             rgba(255,70,150,.12),
             rgba(0,0,0,.2)
         );
 
-
-    border:
-
-        1px solid
-        rgba(255,255,255,.13);
-
+    border: 1px solid rgba(255,255,255,.13);
 
     box-shadow:
-
         inset 0 0 40px
         rgba(0,0,0,.2);
-
 }
 
-
 #heart {
-
     position: absolute;
 
     width: 76px;
-
     height: 76px;
 
     padding: 0;
-
     margin: 0;
 
     border-radius: 50%;
 
-
     display: flex;
 
     align-items: center;
-
     justify-content: center;
-
 
     font-size: 38px;
 
+    background: rgba(255,255,255,.12);
 
-    background:
-        rgba(255,255,255,.12);
-
-
-    border:
-        1px solid
-        rgba(255,255,255,.3);
-
+    border: 1px solid rgba(255,255,255,.3);
 
     box-shadow:
-
         0 0 30px
         rgba(255,50,140,.8);
 
-
     transition:
-
         left .2s ease,
         top .2s ease;
 
-
     touch-action: manipulation;
-
 }
 
-
 .score-box {
-
     display: flex;
 
     justify-content: space-between;
@@ -711,69 +513,49 @@ button span {
 
     border-radius: 50px;
 
-    background:
-        rgba(255,255,255,.07);
-
+    background: rgba(255,255,255,.07);
 }
 
-
 .score-box span {
-
     font-size: 10px;
 
     letter-spacing: 2px;
 
-    color:
-        rgba(255,255,255,.55);
-
+    color: rgba(255,255,255,.55);
 }
 
-
 .score-box strong {
-
     color: #ff9fc2;
 
     font-size: 18px;
-
 }
 
-
 .game-message {
-
     margin-top: 18px;
 
     color: #ffd0e0;
-
 }
-
 
 /* ==================================================
    MEMORIES
 ================================================== */
 
 .content {
-
     width: 100%;
 
     max-width: 1100px;
 
     text-align: center;
-
 }
 
-
 .subtitle {
-
     max-width: 600px;
 
     margin:
         0 auto 35px;
-
 }
 
-
 .gallery {
-
     display: grid;
 
     grid-template-columns:
@@ -782,79 +564,50 @@ button span {
     gap: 35px;
 
     margin-bottom: 35px;
-
 }
 
-
 .photo-card {
-
     padding: 12px 12px 18px;
 
-    background:
-        rgba(255,255,255,.96);
+    background: rgba(255,255,255,.96);
 
     color: #311025;
 
     box-shadow:
-
         0 25px 50px
         rgba(0,0,0,.4);
 
-    transition:
-        .4s;
-
+    transition: .4s;
 }
-
 
 .photo-one {
-
-    transform:
-        rotate(-2deg);
-
+    transform: rotate(-2deg);
 }
-
 
 .photo-two {
-
-    transform:
-        rotate(2deg);
-
+    transform: rotate(2deg);
 }
-
 
 .photo-three {
-
-    transform:
-        rotate(1.5deg);
-
+    transform: rotate(1.5deg);
 }
-
 
 .photo-four {
-
-    transform:
-        rotate(-1.5deg);
-
+    transform: rotate(-1.5deg);
 }
 
-
 .photo-card:hover {
-
     transform:
         rotate(0deg)
         translateY(-8px)
         scale(1.02);
 
     box-shadow:
-
         0 30px 60px
         rgba(255,70,140,.25);
-
 }
 
-
 .photo-box {
-
     width: 100%;
 
     height: 370px;
@@ -864,16 +617,12 @@ button span {
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     overflow: hidden;
-
 }
 
-
 .photo-box img {
-
     width: 100%;
 
     height: 100%;
@@ -881,29 +630,21 @@ button span {
     object-fit: contain;
 
     display: block;
-
 }
-
 
 .photo-caption {
-
     padding-top: 13px;
 
-    font-family:
-        'Caveat',
-        cursive;
+    font-family: 'Caveat', cursive;
 
     font-size: 21px;
-
 }
-
 
 /* ==================================================
    LETTER
 ================================================== */
 
 .letter-card {
-
     width: 100%;
 
     max-width: 700px;
@@ -912,67 +653,45 @@ button span {
 
     border-radius: 25px;
 
-
     background:
-
         linear-gradient(
             145deg,
             rgba(255,245,250,.14),
             rgba(255,255,255,.035)
         );
 
-
-    border:
-        1px solid
-        rgba(255,255,255,.17);
-
+    border: 1px solid rgba(255,255,255,.17);
 
     backdrop-filter: blur(25px);
 
-
     box-shadow:
-
         0 30px 80px
         rgba(0,0,0,.45);
 
     text-align: center;
-
 }
 
-
 .letter-decoration {
-
     font-size: 35px;
 
     color: #ff9fc2;
-
 }
 
-
 .letter-line {
-
     height: 1px;
 
     background:
         rgba(255,255,255,.15);
 
     margin: 25px 0;
-
 }
-
 
 .letter-text {
-
     text-align: left;
-
 }
 
-
 .letter-text p {
-
-    font-family:
-        'Caveat',
-        cursive;
+    font-family: 'Caveat', cursive;
 
     font-size: 23px;
 
@@ -981,27 +700,21 @@ button span {
     color: #ffe3ed;
 
     margin-bottom: 18px;
-
 }
 
-
 .signature {
-
     text-align: right;
 
     font-size: 30px !important;
 
     color: #ffb4cd !important;
-
 }
-
 
 /* ==================================================
    FINAL
 ================================================== */
 
 .final-card {
-
     width: 100%;
 
     max-width: 650px;
@@ -1010,113 +723,80 @@ button span {
 
     text-align: center;
 
-
     background:
-
         linear-gradient(
             145deg,
             rgba(255,255,255,.14),
             rgba(255,255,255,.035)
         );
 
-
     border:
         1px solid
         rgba(255,255,255,.18);
-
 
     backdrop-filter: blur(25px);
 
     border-radius: 35px;
 
-
     box-shadow:
-
         0 30px 90px
         rgba(0,0,0,.5);
 
-
     animation:
         finalAppear 1s ease;
-
 }
 
-
 @keyframes finalAppear {
-
     from {
-
         opacity: 0;
 
         transform:
             scale(.85)
             translateY(30px);
-
     }
 
     to {
-
         opacity: 1;
 
         transform:
             scale(1)
             translateY(0);
-
     }
-
 }
-
 
 .final-heart {
-
     margin-bottom: 20px;
-
 }
 
-
 .final-divider {
-
     font-size: 25px;
 
     color: #ff8fb7;
 
     margin: 25px 0;
-
 }
 
-
 .final-love {
-
     margin-top: 30px;
 
-    font-family:
-        'Caveat',
-        cursive;
+    font-family: 'Caveat', cursive;
 
     font-size: 25px;
 
     color: #ffd3e1;
-
 }
 
-
 .raj {
-
-    font-family:
-        'Caveat',
-        cursive;
+    font-family: 'Caveat', cursive;
 
     font-size: 38px;
 
     color: #ff9fbe;
 
     margin-top: 5px;
-
 }
 
-
 .floating-hearts {
-
     margin-top: 35px;
 
     font-size: 30px;
@@ -1127,29 +807,18 @@ button span {
 
     animation:
         floatHearts 2.5s infinite ease-in-out;
-
 }
 
-
 @keyframes floatHearts {
-
     0%,
     100% {
-
-        transform:
-            translateY(0);
-
+        transform: translateY(0);
     }
 
     50% {
-
-        transform:
-            translateY(-12px);
-
+        transform: translateY(-12px);
     }
-
 }
-
 
 /* ==================================================
    MOBILE
@@ -1158,129 +827,79 @@ button span {
 @media (max-width: 700px) {
 
     .screen {
-
-        padding:
-            18px 12px;
-
+        padding: 18px 12px;
     }
-
 
     .card,
     .game-card,
     .letter-card,
     .final-card {
-
-        padding:
-            35px 20px;
+        padding: 35px 20px;
 
         border-radius: 27px;
-
     }
-
 
     h1 {
-
         font-size: 35px;
-
     }
-
 
     h2 {
-
         font-size: 24px;
-
     }
-
 
     .big-heart {
-
         font-size: 72px;
-
     }
-
 
     #game-area {
-
         height: 370px;
-
     }
 
-
     #heart {
-
         width: 70px;
-
         height: 70px;
 
         font-size: 34px;
-
     }
 
-
     .gallery {
-
         grid-template-columns: 1fr;
 
         gap: 30px;
-
     }
-
 
     .photo-card,
     .photo-one,
     .photo-two,
     .photo-three,
     .photo-four {
-
         transform: rotate(0deg);
-
     }
-
 
     .photo-box {
-
         height: 400px;
-
     }
-
 
     .letter-text p {
-
         font-size: 21px;
-
     }
-
 
     .letter-card {
-
-        padding:
-            40px 24px;
-
+        padding: 40px 24px;
     }
-
 }
-
 
 @media (max-width: 380px) {
 
     h1 {
-
         font-size: 30px;
-
     }
-
 
     #game-area {
-
         height: 340px;
-
     }
-
 
     .photo-box {
-
         height: 350px;
-
     }
-
 }
