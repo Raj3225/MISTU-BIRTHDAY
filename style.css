@@ -1,363 +1,865 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+
+/* ==================================================
+   RESET
+================================================== */
+
 * {
+
     margin: 0;
+
     padding: 0;
+
     box-sizing: border-box;
+
 }
 
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
 body {
+
     min-height: 100vh;
 
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Poppins', sans-serif;
 
     color: white;
 
+    overflow-x: hidden;
+
+
     background:
+
+        radial-gradient(
+            circle at 15% 15%,
+            rgba(255, 70, 140, .22),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(140, 70, 255, .22),
+            transparent 32%
+        ),
+
         linear-gradient(
             135deg,
-            #ff758c,
-            #ff7eb3,
-            #c471ed,
-            #f64f59
+            #100014,
+            #230025,
+            #120018
         );
 
-    overflow-x: hidden;
 }
 
 
-/* =========================
-   SCREENS
-========================= */
+/* ==================================================
+   BACKGROUND LIGHTS
+================================================== */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    width: 450px;
+
+    height: 450px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 40, 120, .18);
+
+    filter: blur(100px);
+
+    top: -200px;
+
+    left: -180px;
+
+    z-index: -2;
+
+    animation: moveGlow 10s infinite alternate ease-in-out;
+
+}
+
+
+body::after {
+
+    content: "";
+
+    position: fixed;
+
+    width: 450px;
+
+    height: 450px;
+
+    border-radius: 50%;
+
+    background: rgba(130, 50, 255, .18);
+
+    filter: blur(100px);
+
+    right: -180px;
+
+    bottom: -200px;
+
+    z-index: -2;
+
+    animation: moveGlow2 12s infinite alternate ease-in-out;
+
+}
+
+
+@keyframes moveGlow {
+
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(100px, 80px);
+    }
+
+}
+
+
+@keyframes moveGlow2 {
+
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(-100px, -80px);
+    }
+
+}
+
+
+/* ==================================================
+   SCREEN
+================================================== */
 
 .screen {
-    min-height: 100vh;
 
     display: none;
 
-    align-items: center;
-    justify-content: center;
+    min-height: 100vh;
 
-    padding: 20px;
-
-    animation: fadeIn 0.7s ease;
-}
-
-.screen.active {
-    display: flex;
-}
-
-
-/* =========================
-   CARD
-========================= */
-
-.card {
     width: 100%;
 
-    max-width: 700px;
+    padding: 30px 18px;
 
-    padding: 40px 30px;
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+
+}
+
+
+.screen.active {
+
+    display: flex;
+
+    animation: screenIn .8s ease;
+
+}
+
+
+@keyframes screenIn {
+
+    from {
+
+        opacity: 0;
+
+        transform: scale(.97);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: scale(1);
+
+    }
+
+}
+
+
+/* ==================================================
+   GLASS CARD
+================================================== */
+
+.card,
+.game-card {
+
+    width: 100%;
+
+    max-width: 600px;
+
+    padding: 48px 38px;
 
     text-align: center;
 
-    background:
-        rgba(255, 255, 255, 0.16);
+    border-radius: 35px;
 
-    backdrop-filter: blur(15px);
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.13),
+            rgba(255,255,255,.035)
+        );
+
 
     border:
-        1px solid rgba(255,255,255,0.3);
 
-    border-radius: 30px;
+        1px solid
+        rgba(255,255,255,.17);
+
+
+    backdrop-filter: blur(25px);
+
 
     box-shadow:
-        0 20px 50px rgba(0,0,0,0.25);
-}
+
+        0 30px 90px
+        rgba(0,0,0,.45),
+
+        inset 0 1px 1px
+        rgba(255,255,255,.2);
 
 
-/* =========================
-   TEXT
-========================= */
-
-h1 {
-    font-size: 42px;
-
-    margin-bottom: 15px;
-}
-
-h2 {
-    font-size: 32px;
-
-    margin-bottom: 20px;
-}
-
-p {
-    font-size: 18px;
-
-    line-height: 1.6;
-
-    margin-bottom: 15px;
-}
-
-.small-text {
-    font-size: 13px;
-
-    opacity: 0.8;
-}
-
-
-/* =========================
-   HEARTS
-========================= */
-
-.heart-icon {
-    font-size: 55px;
-
-    margin-bottom: 10px;
-
-    animation: heartbeat 1.3s infinite;
-}
-
-.big-heart {
-    font-size: 90px;
-
-    animation: heartbeat 1.2s infinite;
-}
-
-
-/* =========================
-   BUTTON
-========================= */
-
-button {
-    border: none;
-
-    padding: 15px 28px;
-
-    margin-top: 15px;
-
-    border-radius: 30px;
-
-    background: white;
-
-    color: #e83e6f;
-
-    font-size: 17px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 8px 20px rgba(0,0,0,0.2);
-
-    transition: 0.2s;
-}
-
-button:hover {
-    transform: translateY(-3px);
-}
-
-button:active {
-    transform: scale(0.96);
-}
-
-
-/* =========================
-   QR SCANNER
-========================= */
-
-.scanner-card {
-    max-width: 550px;
-}
-
-.scanner-container {
     position: relative;
-
-    width: 100%;
-
-    max-width: 420px;
-
-    height: 420px;
-
-    margin: 25px auto;
 
     overflow: hidden;
 
-    border-radius: 25px;
-
-    background: #111;
-
-    border: 3px solid white;
-
-    box-shadow:
-        0 10px 30px rgba(0,0,0,0.4);
-}
-
-#camera {
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: cover;
-
-    display: block;
 }
 
 
-/* Scanner frame */
+.card::before,
+.game-card::before {
 
-.scanner-frame {
+    content: "";
+
     position: absolute;
 
-    top: 12%;
-    left: 12%;
+    width: 180px;
 
-    width: 76%;
-    height: 76%;
+    height: 180px;
 
-    border: 4px solid white;
+    border-radius: 50%;
 
-    border-radius: 20px;
+    background:
+        rgba(255,70,140,.15);
 
-    pointer-events: none;
+    filter: blur(45px);
+
+    top: -100px;
+
+    right: -70px;
+
 }
 
 
-/* Scan line */
+/* ==================================================
+   TYPOGRAPHY
+================================================== */
 
-.scan-line {
-    position: absolute;
+h1 {
 
-    left: 15%;
+    font-family:
+        'Playfair Display',
+        serif;
 
-    width: 70%;
+    font-size:
+        clamp(34px, 7vw, 55px);
 
-    height: 3px;
+    line-height: 1.2;
 
-    background: white;
+    margin-bottom: 20px;
 
-    box-shadow:
-        0 0 15px white;
 
-    animation:
-        scanMove 2s infinite ease-in-out;
+    background:
 
-    pointer-events: none;
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #ffd0e1,
+            #ffffff
+        );
+
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
 }
 
 
-/* =========================
-   PASSWORD
-========================= */
+h2 {
 
-#password-input {
-    display: block;
+    font-family:
+        'Playfair Display',
+        serif;
+
+    font-size: 28px;
+
+    margin: 15px 0;
+
+}
+
+
+p {
+
+    color:
+        rgba(255,255,255,.87);
+
+    font-size: 16px;
+
+    line-height: 1.9;
+
+}
+
+
+.small-title {
+
+    font-size: 11px;
+
+    letter-spacing: 4px;
+
+    font-weight: 600;
+
+    color: #ff9fc2;
+
+    margin-bottom: 15px;
+
+}
+
+
+.soft-text {
+
+    color:
+        rgba(255,255,255,.62);
+
+}
+
+
+/* ==================================================
+   HEART
+================================================== */
+
+.emoji {
+
+    font-size: 70px;
+
+    margin-bottom: 15px;
+
+    filter:
+        drop-shadow(
+            0 0 20px
+            rgba(255,70,140,.5)
+        );
+
+    animation: heartbeat 1.5s infinite;
+
+}
+
+
+.big-heart {
+
+    font-size: 95px;
+
+    filter:
+        drop-shadow(
+            0 0 30px
+            rgba(255,50,130,.7)
+        );
+
+    animation: heartbeat 1.4s infinite;
+
+}
+
+
+@keyframes heartbeat {
+
+    0%,
+    100% {
+
+        transform: scale(1);
+
+    }
+
+    15% {
+
+        transform: scale(1.15);
+
+    }
+
+    30% {
+
+        transform: scale(1);
+
+    }
+
+    45% {
+
+        transform: scale(1.10);
+
+    }
+
+}
+
+
+/* ==================================================
+   INPUT
+================================================== */
+
+input {
 
     width: 100%;
 
-    max-width: 400px;
+    padding: 17px 22px;
 
-    margin: 25px auto 10px;
+    margin-top: 25px;
 
-    padding: 16px 20px;
+    border-radius: 50px;
 
-    border: none;
+    border:
+        1px solid
+        rgba(255,255,255,.2);
+
+    background:
+        rgba(0,0,0,.22);
+
+    color: white;
+
+    font-size: 16px;
+
+    text-align: center;
 
     outline: none;
 
-    border-radius: 30px;
+    transition: .3s;
 
-    font-size: 17px;
-
-    text-align: center;
-}
-
-#password-message {
-    min-height: 25px;
-
-    margin-top: 15px;
 }
 
 
-/* =========================
-   GAME
-========================= */
+input::placeholder {
 
-.game-info {
-    display: flex;
+    color:
+        rgba(255,255,255,.5);
 
-    justify-content: space-around;
-
-    margin: 20px 0;
-
-    font-size: 18px;
 }
 
-#game-area {
-    position: relative;
 
-    width: 100%;
+input:focus {
 
-    max-width: 500px;
+    border-color:
+        #ff72a5;
 
-    height: 400px;
+    box-shadow:
 
-    margin: auto;
+        0 0 25px
+        rgba(255,70,140,.3);
 
-    overflow: hidden;
-
-    border-radius: 20px;
-
-    background:
-        rgba(0,0,0,0.2);
 }
 
-.game-heart {
-    position: absolute;
 
-    font-size: 40px;
+/* ==================================================
+   BUTTON
+================================================== */
+
+button {
+
+    border: none;
 
     cursor: pointer;
 
-    user-select: none;
+    padding: 16px 30px;
 
-    animation:
-        heartbeat 0.8s infinite;
+    margin-top: 22px;
+
+    border-radius: 50px;
+
+    color: white;
+
+    font-family:
+        'Poppins',
+        sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #ff4f91,
+            #a84dff
+        );
+
+
+    box-shadow:
+
+        0 12px 35px
+        rgba(255,60,140,.28);
+
+
+    transition:
+        .3s;
+
 }
 
-#game-message {
-    min-height: 30px;
 
-    font-weight: bold;
+button:hover {
+
+    transform:
+        translateY(-3px)
+        scale(1.03);
+
+    box-shadow:
+
+        0 18px 45px
+        rgba(255,60,140,.45);
+
 }
 
 
-/* =========================
-   GALLERY
-========================= */
+button:active {
 
-.memories-card {
-    max-width: 900px;
+    transform:
+        scale(.95);
+
 }
+
+
+button span {
+
+    margin-left: 8px;
+
+}
+
+
+/* ==================================================
+   MESSAGE
+================================================== */
+
+.message {
+
+    min-height: 28px;
+
+    margin-top: 14px;
+
+    color: #ffd5e4;
+
+}
+
+
+/* ==================================================
+   SMALL DECORATION
+================================================== */
+
+.tiny-hearts {
+
+    margin-top: 25px;
+
+    color: #ff8eb6;
+
+    opacity: .65;
+
+}
+
+
+.sparkle,
+.final-stars {
+
+    color: #ffb7d2;
+
+    letter-spacing: 10px;
+
+    margin-bottom: 15px;
+
+}
+
+
+/* ==================================================
+   GAME
+================================================== */
+
+.game-card {
+
+    max-width: 700px;
+
+}
+
+
+#game-area {
+
+    width: 100%;
+
+    height: 400px;
+
+    margin: 28px auto 20px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 28px;
+
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            rgba(255,70,150,.12),
+            rgba(0,0,0,.2)
+        );
+
+
+    border:
+
+        1px solid
+        rgba(255,255,255,.13);
+
+
+    box-shadow:
+
+        inset 0 0 40px
+        rgba(0,0,0,.2);
+
+}
+
+
+#heart {
+
+    position: absolute;
+
+    width: 76px;
+
+    height: 76px;
+
+    padding: 0;
+
+    margin: 0;
+
+    border-radius: 50%;
+
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+
+    font-size: 38px;
+
+
+    background:
+        rgba(255,255,255,.12);
+
+
+    border:
+        1px solid
+        rgba(255,255,255,.3);
+
+
+    box-shadow:
+
+        0 0 30px
+        rgba(255,50,140,.8);
+
+
+    transition:
+
+        left .2s ease,
+        top .2s ease;
+
+
+    touch-action: manipulation;
+
+}
+
+
+.score-box {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    max-width: 350px;
+
+    margin: auto;
+
+    padding: 13px 20px;
+
+    border-radius: 50px;
+
+    background:
+        rgba(255,255,255,.07);
+
+}
+
+
+.score-box span {
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    color:
+        rgba(255,255,255,.55);
+
+}
+
+
+.score-box strong {
+
+    color: #ff9fc2;
+
+    font-size: 18px;
+
+}
+
+
+.game-message {
+
+    margin-top: 18px;
+
+    color: #ffd0e0;
+
+}
+
+
+/* ==================================================
+   MEMORIES
+================================================== */
+
+.content {
+
+    width: 100%;
+
+    max-width: 1100px;
+
+    text-align: center;
+
+}
+
+
+.subtitle {
+
+    max-width: 600px;
+
+    margin:
+        0 auto 35px;
+
+}
+
 
 .gallery {
+
     display: grid;
 
     grid-template-columns:
         repeat(2, 1fr);
 
-    gap: 20px;
+    gap: 35px;
 
-    margin: 30px 0;
+    margin-bottom: 35px;
+
 }
 
 
-/* PHOTO BOX */
+.photo-card {
+
+    padding: 12px 12px 18px;
+
+    background:
+        rgba(255,255,255,.96);
+
+    color: #311025;
+
+    box-shadow:
+
+        0 25px 50px
+        rgba(0,0,0,.4);
+
+    transition:
+        .4s;
+
+}
+
+
+.photo-one {
+
+    transform:
+        rotate(-2deg);
+
+}
+
+
+.photo-two {
+
+    transform:
+        rotate(2deg);
+
+}
+
+
+.photo-three {
+
+    transform:
+        rotate(1.5deg);
+
+}
+
+
+.photo-four {
+
+    transform:
+        rotate(-1.5deg);
+
+}
+
+
+.photo-card:hover {
+
+    transform:
+        rotate(0deg)
+        translateY(-8px)
+        scale(1.02);
+
+    box-shadow:
+
+        0 30px 60px
+        rgba(255,70,140,.25);
+
+}
+
 
 .photo-box {
+
     width: 100%;
 
-    height: 400px;
+    height: 370px;
+
+    background: #eee;
 
     display: flex;
 
@@ -367,18 +869,11 @@ button:active {
 
     overflow: hidden;
 
-    padding: 10px;
-
-    background:
-        rgba(0,0,0,0.3);
-
-    border-radius: 20px;
 }
 
 
-/* ACTUAL IMAGE */
-
 .photo-box img {
+
     width: 100%;
 
     height: 100%;
@@ -387,193 +882,405 @@ button:active {
 
     display: block;
 
-    border-radius: 14px;
 }
 
 
-/* Image not found */
+.photo-caption {
 
-.photo-box.image-error::after {
-    content:
-        "Photo not found\nCheck images folder";
+    padding-top: 13px;
 
-    white-space: pre-line;
+    font-family:
+        'Caveat',
+        cursive;
 
-    font-size: 16px;
+    font-size: 21px;
+
+}
+
+
+/* ==================================================
+   LETTER
+================================================== */
+
+.letter-card {
+
+    width: 100%;
+
+    max-width: 700px;
+
+    padding: 50px 45px;
+
+    border-radius: 25px;
+
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(255,245,250,.14),
+            rgba(255,255,255,.035)
+        );
+
+
+    border:
+        1px solid
+        rgba(255,255,255,.17);
+
+
+    backdrop-filter: blur(25px);
+
+
+    box-shadow:
+
+        0 30px 80px
+        rgba(0,0,0,.45);
 
     text-align: center;
 
-    opacity: 0.8;
 }
 
 
-/* =========================
-   LETTER
-========================= */
+.letter-decoration {
 
-.love-card {
-    max-width: 750px;
+    font-size: 35px;
+
+    color: #ff9fc2;
+
 }
 
-.letter {
-    margin-top: 25px;
 
-    padding: 30px;
+.letter-line {
+
+    height: 1px;
+
+    background:
+        rgba(255,255,255,.15);
+
+    margin: 25px 0;
+
+}
+
+
+.letter-text {
 
     text-align: left;
 
-    background:
-        rgba(255,255,255,0.12);
-
-    border-radius: 20px;
-}
-
-.signature {
-    text-align: right;
-
-    font-weight: bold;
-
-    font-size: 20px;
 }
 
 
-/* =========================
-   FINAL
-========================= */
+.letter-text p {
 
-.final-card {
-    max-width: 750px;
-}
+    font-family:
+        'Caveat',
+        cursive;
 
-.final-message {
     font-size: 23px;
 
-    margin: 25px 0;
+    line-height: 1.55;
+
+    color: #ffe3ed;
+
+    margin-bottom: 18px;
+
 }
 
-.floating-hearts {
-    font-size: 30px;
 
-    margin: 30px 0;
+.signature {
+
+    text-align: right;
+
+    font-size: 30px !important;
+
+    color: #ffb4cd !important;
+
+}
+
+
+/* ==================================================
+   FINAL
+================================================== */
+
+.final-card {
+
+    width: 100%;
+
+    max-width: 650px;
+
+    padding: 60px 35px;
+
+    text-align: center;
+
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.14),
+            rgba(255,255,255,.035)
+        );
+
+
+    border:
+        1px solid
+        rgba(255,255,255,.18);
+
+
+    backdrop-filter: blur(25px);
+
+    border-radius: 35px;
+
+
+    box-shadow:
+
+        0 30px 90px
+        rgba(0,0,0,.5);
+
 
     animation:
-        floatHearts 3s infinite ease-in-out;
-}
+        finalAppear 1s ease;
 
-.end-text {
-    font-size: 20px;
-
-    font-weight: bold;
 }
 
 
-/* =========================
-   ANIMATIONS
-========================= */
-
-@keyframes fadeIn {
+@keyframes finalAppear {
 
     from {
+
         opacity: 0;
 
         transform:
-            translateY(20px);
+            scale(.85)
+            translateY(30px);
+
     }
 
     to {
+
         opacity: 1;
 
         transform:
+            scale(1)
             translateY(0);
+
     }
+
 }
 
-@keyframes heartbeat {
 
-    0%,
-    100% {
-        transform: scale(1);
-    }
+.final-heart {
 
-    50% {
-        transform: scale(1.15);
-    }
+    margin-bottom: 20px;
+
 }
 
-@keyframes scanMove {
 
-    0% {
-        top: 15%;
-    }
+.final-divider {
 
-    50% {
-        top: 82%;
-    }
+    font-size: 25px;
 
-    100% {
-        top: 15%;
-    }
+    color: #ff8fb7;
+
+    margin: 25px 0;
+
 }
+
+
+.final-love {
+
+    margin-top: 30px;
+
+    font-family:
+        'Caveat',
+        cursive;
+
+    font-size: 25px;
+
+    color: #ffd3e1;
+
+}
+
+
+.raj {
+
+    font-family:
+        'Caveat',
+        cursive;
+
+    font-size: 38px;
+
+    color: #ff9fbe;
+
+    margin-top: 5px;
+
+}
+
+
+.floating-hearts {
+
+    margin-top: 35px;
+
+    font-size: 30px;
+
+    color: #ff9fbe;
+
+    letter-spacing: 7px;
+
+    animation:
+        floatHearts 2.5s infinite ease-in-out;
+
+}
+
 
 @keyframes floatHearts {
 
-    0% {
-        transform: translateY(0);
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
     }
 
     50% {
-        transform: translateY(-15px);
+
+        transform:
+            translateY(-12px);
+
     }
 
-    100% {
-        transform: translateY(0);
-    }
 }
 
 
-/* =========================
+/* ==================================================
    MOBILE
-========================= */
+================================================== */
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
 
     .screen {
-        padding: 12px;
+
+        padding:
+            18px 12px;
+
     }
 
-    .card {
-        padding: 30px 18px;
+
+    .card,
+    .game-card,
+    .letter-card,
+    .final-card {
+
+        padding:
+            35px 20px;
+
+        border-radius: 27px;
+
     }
+
 
     h1 {
-        font-size: 32px;
+
+        font-size: 35px;
+
     }
+
 
     h2 {
-        font-size: 26px;
+
+        font-size: 24px;
+
     }
 
-    p {
-        font-size: 16px;
-    }
-
-    .scanner-container {
-        height: 330px;
-    }
-
-    .gallery {
-        grid-template-columns: 1fr;
-    }
-
-    .photo-box {
-        height: 350px;
-    }
-
-    #game-area {
-        height: 350px;
-    }
 
     .big-heart {
-        font-size: 70px;
+
+        font-size: 72px;
+
     }
+
+
+    #game-area {
+
+        height: 370px;
+
+    }
+
+
+    #heart {
+
+        width: 70px;
+
+        height: 70px;
+
+        font-size: 34px;
+
+    }
+
+
+    .gallery {
+
+        grid-template-columns: 1fr;
+
+        gap: 30px;
+
+    }
+
+
+    .photo-card,
+    .photo-one,
+    .photo-two,
+    .photo-three,
+    .photo-four {
+
+        transform: rotate(0deg);
+
+    }
+
+
+    .photo-box {
+
+        height: 400px;
+
+    }
+
+
+    .letter-text p {
+
+        font-size: 21px;
+
+    }
+
+
+    .letter-card {
+
+        padding:
+            40px 24px;
+
+    }
+
+}
+
+
+@media (max-width: 380px) {
+
+    h1 {
+
+        font-size: 30px;
+
+    }
+
+
+    #game-area {
+
+        height: 340px;
+
+    }
+
+
+    .photo-box {
+
+        height: 350px;
+
+    }
+
 }

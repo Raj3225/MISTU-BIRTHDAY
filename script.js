@@ -1,575 +1,249 @@
-/* =========================================
-   VARIABLES
-========================================= */
-
-let cameraStream = null;
-
-let scanning = false;
-
-let video = null;
-
-let canvas = null;
-
-let canvasContext = null;
-
-let score = 0;
-
-let timeLeft = 20;
-
-let gameTimer = null;
-
-let gameRunning = false;
-
-
-/* =========================================
-   SHOW SCREEN
-========================================= */
-
 function showScreen(screenId) {
 
-    const screens =
-        document.querySelectorAll(".screen");
+    const screens = document.querySelectorAll(".screen");
 
     screens.forEach(function(screen) {
-
         screen.classList.remove("active");
-
     });
 
-    const target =
-        document.getElementById(screenId);
+    const selectedScreen = document.getElementById(screenId);
 
-    if (target) {
+    selectedScreen.classList.add("active");
 
-        target.classList.add("active");
-
-    }
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
 
-/* =========================================
-   START CAMERA
-========================================= */
+/* ================= PASSWORD ================= */
 
-async function startScanner() {
+const passwordInput = document.getElementById("password");
+const passwordButton = document.getElementById("passwordBtn");
+const passwordMessage = document.getElementById("passwordMessage");
 
-    video =
-        document.getElementById("camera");
-
-    canvas =
-        document.getElementById("qr-canvas");
-
-    canvasContext =
-        canvas.getContext("2d");
-
-    const status =
-        document.getElementById("scanner-status");
-
-    const button =
-        document.getElementById("start-camera-btn");
-
-
-    if (!navigator.mediaDevices ||
-        !navigator.mediaDevices.getUserMedia) {
-
-        status.innerText =
-            "Camera is not supported by this browser.";
-
-        return;
-    }
-
-
-    try {
-
-        status.innerText =
-            "Opening camera... 📷";
-
-        button.disabled = true;
-
-
-        cameraStream =
-            await navigator.mediaDevices.getUserMedia({
-
-                video: {
-
-                    facingMode: {
-                        ideal: "environment"
-                    }
-
-                },
-
-                audio: false
-
-            });
-
-
-        video.srcObject =
-            cameraStream;
-
-
-        await video.play();
-
-
-        scanning = true;
-
-
-        status.innerText =
-            "Point your camera at the QR code ❤️";
-
-
-        scanQRCode();
-
-
-    } catch (error) {
-
-        console.error(error);
-
-        button.disabled = false;
-
-        status.innerText =
-            "Please allow camera permission 📷";
-
-    }
-}
-
-
-/* =========================================
-   SCAN QR
-========================================= */
-
-function scanQRCode() {
-
-    if (!scanning) {
-        return;
-    }
-
-
-    if (video.readyState ===
-        video.HAVE_ENOUGH_DATA) {
-
-
-        canvas.width =
-            video.videoWidth;
-
-        canvas.height =
-            video.videoHeight;
-
-
-        canvasContext.drawImage(
-
-            video,
-
-            0,
-            0,
-
-            canvas.width,
-            canvas.height
-
-        );
-
-
-        const imageData =
-            canvasContext.getImageData(
-
-                0,
-                0,
-
-                canvas.width,
-                canvas.height
-
-            );
-
-
-        const code =
-            jsQR(
-
-                imageData.data,
-
-                imageData.width,
-
-                imageData.height
-
-            );
-
-
-        if (code) {
-
-            handleQRCode(code.data);
-
-            return;
-        }
-    }
-
-
-    requestAnimationFrame(scanQRCode);
-}
-
-
-/* =========================================
-   QR FOUND
-========================================= */
-
-function handleQRCode(data) {
-
-    console.log(
-        "QR code detected:",
-        data
-    );
-
-
-    scanning = false;
-
-    stopCamera();
-
-
-    document.getElementById(
-        "scanner-status"
-    ).innerText =
-        "QR scanned successfully! ❤️";
-
-
-    setTimeout(function() {
-
-        showScreen("password-screen");
-
-
-        const input =
-            document.getElementById(
-                "password-input"
-            );
-
-
-        if (input) {
-            input.focus();
-        }
-
-    }, 700);
-}
-
-
-/* =========================================
-   STOP CAMERA
-========================================= */
-
-function stopCamera() {
-
-    if (cameraStream) {
-
-        cameraStream
-            .getTracks()
-            .forEach(function(track) {
-
-                track.stop();
-
-            });
-
-        cameraStream = null;
-    }
-
-
-    if (video) {
-
-        video.srcObject = null;
-
-    }
-}
-
-
-/* =========================================
-   PASSWORD
-========================================= */
 
 function checkPassword() {
 
-    const input =
-        document.getElementById(
-            "password-input"
-        );
+    const enteredPassword = passwordInput.value.trim();
 
-    const message =
-        document.getElementById(
-            "password-message"
-        );
+    if (enteredPassword === "29thmarch") {
 
+        passwordMessage.innerText = "Welcome, Mistu ❤️";
 
-    const password =
-        input.value.trim();
-
-
-    if (password === "29thmarch") {
-
-        message.innerText =
-            "Correct password! ❤️";
-
+        passwordButton.disabled = true;
+        passwordInput.disabled = true;
 
         setTimeout(function() {
 
             showScreen("game-screen");
 
-        }, 700);
-
-
-    } else {
-
-        message.innerText =
-            "Wrong password 💔";
-
-        input.value = "";
-
-        input.focus();
-
-    }
-}
-
-
-/* =========================================
-   ENTER PASSWORD WITH ENTER KEY
-========================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        const input =
-            document.getElementById(
-                "password-input"
-            );
-
-
-        input.addEventListener(
-            "keydown",
-            function(event) {
-
-                if (event.key === "Enter") {
-
-                    checkPassword();
-
-                }
-
-            }
-        );
-
-    }
-);
-
-
-/* =========================================
-   START GAME
-========================================= */
-
-function startGame() {
-
-    if (gameRunning) {
-        return;
-    }
-
-
-    score = 0;
-
-    timeLeft = 20;
-
-    gameRunning = true;
-
-
-    document.getElementById(
-        "score"
-    ).innerText = score;
-
-
-    document.getElementById(
-        "timer"
-    ).innerText = timeLeft;
-
-
-    document.getElementById(
-        "game-message"
-    ).innerText = "";
-
-
-    document.getElementById(
-        "start-game-btn"
-    ).style.display = "none";
-
-
-    const gameArea =
-        document.getElementById(
-            "game-area"
-        );
-
-
-    gameArea.innerHTML = "";
-
-
-    gameTimer =
-        setInterval(function() {
-
-            timeLeft--;
-
-            document.getElementById(
-                "timer"
-            ).innerText = timeLeft;
-
-
-            if (timeLeft <= 0) {
-
-                endGame();
-
-            }
+            startGame();
 
         }, 1000);
 
+    } else {
 
-    createHeart();
+        passwordMessage.innerText = "Almost... try again 😜";
+
+        passwordInput.value = "";
+
+        passwordInput.focus();
+    }
 }
 
 
-/* =========================================
-   CREATE HEART
-========================================= */
+passwordButton.addEventListener("click", checkPassword);
 
-function createHeart() {
 
-    if (!gameRunning) {
+passwordInput.addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+
+        checkPassword();
+
+    }
+
+});
+
+
+/* ================= HEART GAME ================= */
+
+const gameArea = document.getElementById("game-area");
+
+const heart = document.getElementById("heart");
+
+const scoreText = document.getElementById("score");
+
+const gameMessage = document.getElementById("game-message");
+
+
+let score = 0;
+
+let gameRunning = false;
+
+
+function startGame() {
+
+    score = 0;
+
+    gameRunning = true;
+
+    heart.style.display = "flex";
+
+    scoreText.innerText = "0 / 5";
+
+    gameMessage.innerText = "Tap the glowing heart ❤️";
+
+    moveHeart();
+}
+
+
+function moveHeart() {
+
+    if (!gameRunning) return;
+
+    const areaWidth = gameArea.clientWidth;
+
+    const areaHeight = gameArea.clientHeight;
+
+    const heartWidth = heart.offsetWidth;
+
+    const heartHeight = heart.offsetHeight;
+
+
+    const maxX = Math.max(
+        0,
+        areaWidth - heartWidth
+    );
+
+
+    const maxY = Math.max(
+        0,
+        areaHeight - heartHeight
+    );
+
+
+    const randomX = Math.floor(
+        Math.random() * (maxX + 1)
+    );
+
+
+    const randomY = Math.floor(
+        Math.random() * (maxY + 1)
+    );
+
+
+    heart.style.left = randomX + "px";
+
+    heart.style.top = randomY + "px";
+}
+
+
+heart.addEventListener("click", function(event) {
+
+    event.preventDefault();
+
+    if (!gameRunning) return;
+
+
+    score++;
+
+    scoreText.innerText = score + " / 5";
+
+
+    if (score === 1) {
+
+        gameMessage.innerText =
+            "Yay! Keep going 💕";
+
+    }
+
+
+    if (score === 2) {
+
+        gameMessage.innerText =
+            "You're good at this 😍";
+
+    }
+
+
+    if (score === 3) {
+
+        gameMessage.innerText =
+            "Three already! ❤️";
+
+    }
+
+
+    if (score === 4) {
+
+        gameMessage.innerText =
+            "One more! 🥰";
+
+    }
+
+
+    if (score >= 5) {
+
+        gameRunning = false;
+
+        heart.style.display = "none";
+
+        gameMessage.innerText =
+            "You caught all my hearts! ❤️";
+
+
+        setTimeout(function() {
+
+            showScreen("birthday-screen");
+
+        }, 1200);
+
+
         return;
     }
 
 
-    const gameArea =
-        document.getElementById(
-            "game-area"
-        );
+    moveHeart();
+
+});
 
 
-    const heart =
-        document.createElement("div");
+/* ================= NAVIGATION ================= */
+
+document
+    .getElementById("memoriesBtn")
+    .addEventListener("click", function() {
+
+        showScreen("memories-screen");
+
+    });
 
 
-    heart.className =
-        "game-heart";
+document
+    .getElementById("letterBtn")
+    .addEventListener("click", function() {
+
+        showScreen("letter-screen");
+
+    });
 
 
-    heart.innerText =
-        "❤️";
+document
+    .getElementById("finalBtn")
+    .addEventListener("click", function() {
+
+        showScreen("final-screen");
+
+    });
 
 
-    const maxX =
-        gameArea.clientWidth - 50;
+/* ================= PASSWORD INPUT ================= */
 
-    const maxY =
-        gameArea.clientHeight - 50;
+passwordInput.addEventListener("input", function() {
 
+    passwordMessage.innerText = "";
 
-    heart.style.left =
-        Math.random() * maxX + "px";
-
-
-    heart.style.top =
-        Math.random() * maxY + "px";
-
-
-    heart.onclick =
-        function() {
-
-            if (!gameRunning) {
-                return;
-            }
-
-
-            score++;
-
-
-            document.getElementById(
-                "score"
-            ).innerText = score;
-
-
-            heart.remove();
-
-
-            if (score >= 5) {
-
-                winGame();
-
-            } else {
-
-                createHeart();
-
-            }
-
-        };
-
-
-    gameArea.appendChild(heart);
-}
-
-
-/* =========================================
-   WIN GAME
-========================================= */
-
-function winGame() {
-
-    gameRunning = false;
-
-    clearInterval(gameTimer);
-
-
-    document.getElementById(
-        "game-message"
-    ).innerText =
-        "You caught all the hearts! ❤️";
-
-
-    setTimeout(function() {
-
-        showScreen(
-            "birthday-screen"
-        );
-
-    }, 1000);
-}
-
-
-/* =========================================
-   GAME OVER
-========================================= */
-
-function endGame() {
-
-    gameRunning = false;
-
-    clearInterval(gameTimer);
-
-
-    document.getElementById(
-        "game-message"
-    ).innerText =
-        "Time's up! Try again ❤️";
-
-
-    document.getElementById(
-        "start-game-btn"
-    ).style.display = "inline-block";
-
-
-    document.getElementById(
-        "start-game-btn"
-    ).innerText =
-        "Try Again 💕";
-}
-
-
-/* =========================================
-   ALWAYS START WITH SCANNER
-========================================= */
-
-window.addEventListener(
-    "load",
-    function() {
-
-        showScreen(
-            "scanner-screen"
-        );
-
-    }
-);
+});
