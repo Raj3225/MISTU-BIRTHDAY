@@ -1,14 +1,20 @@
+/* ==================================================
+   SCREEN NAVIGATION
+================================================== */
+
 function showScreen(screenId) {
 
     const screens = document.querySelectorAll(".screen");
 
-    screens.forEach(function(screen) {
+    screens.forEach(function (screen) {
         screen.classList.remove("active");
     });
 
     const selectedScreen = document.getElementById(screenId);
 
-    selectedScreen.classList.add("active");
+    if (selectedScreen) {
+        selectedScreen.classList.add("active");
+    }
 
     window.scrollTo({
         top: 0,
@@ -17,7 +23,9 @@ function showScreen(screenId) {
 }
 
 
-/* ================= PASSWORD ================= */
+/* ==================================================
+   PASSWORD
+================================================== */
 
 const passwordInput = document.getElementById("password");
 const passwordButton = document.getElementById("passwordBtn");
@@ -33,9 +41,10 @@ function checkPassword() {
         passwordMessage.innerText = "Welcome, Mistu ❤️";
 
         passwordButton.disabled = true;
+
         passwordInput.disabled = true;
 
-        setTimeout(function() {
+        setTimeout(function () {
 
             showScreen("game-screen");
 
@@ -54,21 +63,39 @@ function checkPassword() {
 }
 
 
-passwordButton.addEventListener("click", checkPassword);
+passwordButton.addEventListener(
+    "click",
+    checkPassword
+);
 
 
-passwordInput.addEventListener("keydown", function(event) {
+passwordInput.addEventListener(
+    "keydown",
+    function (event) {
 
-    if (event.key === "Enter") {
+        if (event.key === "Enter") {
 
-        checkPassword();
+            checkPassword();
+
+        }
 
     }
+);
 
-});
+
+passwordInput.addEventListener(
+    "input",
+    function () {
+
+        passwordMessage.innerText = "";
+
+    }
+);
 
 
-/* ================= HEART GAME ================= */
+/* ==================================================
+   HEART GAME
+================================================== */
 
 const gameArea = document.getElementById("game-area");
 
@@ -84,6 +111,10 @@ let score = 0;
 let gameRunning = false;
 
 
+/* ==================================================
+   START GAME
+================================================== */
+
 function startGame() {
 
     score = 0;
@@ -94,15 +125,22 @@ function startGame() {
 
     scoreText.innerText = "0 / 5";
 
-    gameMessage.innerText = "Tap the glowing heart ❤️";
+    gameMessage.innerText =
+        "Tap the glowing heart ❤️";
 
     moveHeart();
 }
 
 
+/* ==================================================
+   MOVE HEART
+================================================== */
+
 function moveHeart() {
 
-    if (!gameRunning) return;
+    if (!gameRunning) {
+        return;
+    }
 
     const areaWidth = gameArea.clientWidth;
 
@@ -113,137 +151,167 @@ function moveHeart() {
     const heartHeight = heart.offsetHeight;
 
 
-    const maxX = Math.max(
-        0,
-        areaWidth - heartWidth
-    );
+    const maxX =
+        Math.max(
+            0,
+            areaWidth - heartWidth
+        );
 
 
-    const maxY = Math.max(
-        0,
-        areaHeight - heartHeight
-    );
+    const maxY =
+        Math.max(
+            0,
+            areaHeight - heartHeight
+        );
 
 
-    const randomX = Math.floor(
-        Math.random() * (maxX + 1)
-    );
+    const randomX =
+        Math.floor(
+            Math.random() * (maxX + 1)
+        );
 
 
-    const randomY = Math.floor(
-        Math.random() * (maxY + 1)
-    );
+    const randomY =
+        Math.floor(
+            Math.random() * (maxY + 1)
+        );
 
 
-    heart.style.left = randomX + "px";
+    heart.style.left =
+        randomX + "px";
 
-    heart.style.top = randomY + "px";
+
+    heart.style.top =
+        randomY + "px";
 }
 
 
-heart.addEventListener("click", function(event) {
+/* ==================================================
+   CATCH HEART
+================================================== */
 
-    event.preventDefault();
+heart.addEventListener(
+    "click",
+    function (event) {
 
-    if (!gameRunning) return;
+        event.preventDefault();
+
+        if (!gameRunning) {
+            return;
+        }
 
 
-    score++;
-
-    scoreText.innerText = score + " / 5";
+        score++;
 
 
-    if (score === 1) {
+        scoreText.innerText =
+            score + " / 5";
 
-        gameMessage.innerText =
-            "Yay! Keep going 💕";
+
+        if (score === 1) {
+
+            gameMessage.innerText =
+                "Yay! Keep going 💕";
+
+        }
+
+
+        if (score === 2) {
+
+            gameMessage.innerText =
+                "You're good at this 😍";
+
+        }
+
+
+        if (score === 3) {
+
+            gameMessage.innerText =
+                "Three already! ❤️";
+
+        }
+
+
+        if (score === 4) {
+
+            gameMessage.innerText =
+                "One more! 🥰";
+
+        }
+
+
+        if (score >= 5) {
+
+            gameRunning = false;
+
+            heart.style.display = "none";
+
+            gameMessage.innerText =
+                "You caught all my hearts! ❤️";
+
+
+            setTimeout(
+                function () {
+
+                    showScreen("birthday-screen");
+
+                },
+                1200
+            );
+
+            return;
+        }
+
+
+        moveHeart();
 
     }
+);
 
 
-    if (score === 2) {
-
-        gameMessage.innerText =
-            "You're good at this 😍";
-
-    }
-
-
-    if (score === 3) {
-
-        gameMessage.innerText =
-            "Three already! ❤️";
-
-    }
-
-
-    if (score === 4) {
-
-        gameMessage.innerText =
-            "One more! 🥰";
-
-    }
-
-
-    if (score >= 5) {
-
-        gameRunning = false;
-
-        heart.style.display = "none";
-
-        gameMessage.innerText =
-            "You caught all my hearts! ❤️";
-
-
-        setTimeout(function() {
-
-            showScreen("birthday-screen");
-
-        }, 1200);
-
-
-        return;
-    }
-
-
-    moveHeart();
-
-});
-
-
-/* ================= NAVIGATION ================= */
+/* ==================================================
+   MEMORIES BUTTON
+================================================== */
 
 document
     .getElementById("memoriesBtn")
-    .addEventListener("click", function() {
+    .addEventListener(
+        "click",
+        function () {
 
-        showScreen("memories-screen");
+            showScreen("memories-screen");
 
-    });
+        }
+    );
 
+
+/* ==================================================
+   LETTER BUTTON
+================================================== */
 
 document
     .getElementById("letterBtn")
-    .addEventListener("click", function() {
+    .addEventListener(
+        "click",
+        function () {
 
-        showScreen("letter-screen");
+            showScreen("letter-screen");
 
-    });
+        }
+    );
 
+
+/* ==================================================
+   FINAL BUTTON
+================================================== */
 
 document
     .getElementById("finalBtn")
-    .addEventListener("click", function() {
+    .addEventListener(
+        "click",
+        function () {
 
-        showScreen("final-screen");
+            showScreen("final-screen");
 
-    });
-
-
-/* ================= PASSWORD INPUT ================= */
-
-passwordInput.addEventListener("input", function() {
-
-    passwordMessage.innerText = "";
-
-});
+        }
+    );
