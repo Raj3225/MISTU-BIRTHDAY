@@ -1,10 +1,5 @@
 /* =========================================
-   MISTU BIRTHDAY WEBSITE
-========================================= */
-
-
-/* =========================================
-   GLOBAL VARIABLES
+   VARIABLES
 ========================================= */
 
 let cameraStream = null;
@@ -49,12 +44,11 @@ function showScreen(screenId) {
         target.classList.add("active");
 
     }
-
 }
 
 
 /* =========================================
-   QR SCANNER
+   START CAMERA
 ========================================= */
 
 async function startScanner() {
@@ -75,8 +69,6 @@ async function startScanner() {
         document.getElementById("start-camera-btn");
 
 
-    /* Check camera support */
-
     if (!navigator.mediaDevices ||
         !navigator.mediaDevices.getUserMedia) {
 
@@ -94,9 +86,6 @@ async function startScanner() {
 
         button.disabled = true;
 
-        /*
-            Ask for the rear camera.
-        */
 
         cameraStream =
             await navigator.mediaDevices.getUserMedia({
@@ -114,10 +103,6 @@ async function startScanner() {
             });
 
 
-        /*
-            Put camera stream inside video.
-        */
-
         video.srcObject =
             cameraStream;
 
@@ -126,6 +111,7 @@ async function startScanner() {
 
 
         scanning = true;
+
 
         status.innerText =
             "Point your camera at the QR code ❤️";
@@ -141,15 +127,14 @@ async function startScanner() {
         button.disabled = false;
 
         status.innerText =
-            "Camera permission was denied. Please allow camera access 📷";
+            "Please allow camera permission 📷";
 
     }
-
 }
 
 
 /* =========================================
-   SCAN QR CODE
+   SCAN QR
 ========================================= */
 
 function scanQRCode() {
@@ -159,8 +144,8 @@ function scanQRCode() {
     }
 
 
-    if (video &&
-        video.readyState === video.HAVE_ENOUGH_DATA) {
+    if (video.readyState ===
+        video.HAVE_ENOUGH_DATA) {
 
 
         canvas.width =
@@ -195,10 +180,6 @@ function scanQRCode() {
             );
 
 
-        /*
-            jsQR reads the camera image.
-        */
-
         const code =
             jsQR(
 
@@ -216,14 +197,11 @@ function scanQRCode() {
             handleQRCode(code.data);
 
             return;
-
         }
-
     }
 
 
     requestAnimationFrame(scanQRCode);
-
 }
 
 
@@ -233,7 +211,10 @@ function scanQRCode() {
 
 function handleQRCode(data) {
 
-    console.log("QR DATA:", data);
+    console.log(
+        "QR code detected:",
+        data
+    );
 
 
     scanning = false;
@@ -241,33 +222,28 @@ function handleQRCode(data) {
     stopCamera();
 
 
-    const status =
-        document.getElementById("scanner-status");
-
-
-    status.innerText =
+    document.getElementById(
+        "scanner-status"
+    ).innerText =
         "QR scanned successfully! ❤️";
 
-
-    /*
-        Automatically move to password.
-    */
 
     setTimeout(function() {
 
         showScreen("password-screen");
 
+
         const input =
-            document.getElementById("password-input");
+            document.getElementById(
+                "password-input"
+            );
+
 
         if (input) {
-
             input.focus();
-
         }
 
     }, 700);
-
 }
 
 
@@ -288,7 +264,6 @@ function stopCamera() {
             });
 
         cameraStream = null;
-
     }
 
 
@@ -297,7 +272,6 @@ function stopCamera() {
         video.srcObject = null;
 
     }
-
 }
 
 
@@ -308,24 +282,24 @@ function stopCamera() {
 function checkPassword() {
 
     const input =
-        document.getElementById("password-input");
+        document.getElementById(
+            "password-input"
+        );
 
     const message =
-        document.getElementById("password-message");
+        document.getElementById(
+            "password-message"
+        );
 
 
     const password =
         input.value.trim();
 
 
-    /*
-        YOUR PASSWORD
-    */
-
     if (password === "29thmarch") {
 
         message.innerText =
-            "Password correct! ❤️";
+            "Correct password! ❤️";
 
 
         setTimeout(function() {
@@ -338,19 +312,18 @@ function checkPassword() {
     } else {
 
         message.innerText =
-            "Wrong password 💔 Try again.";
+            "Wrong password 💔";
 
         input.value = "";
 
         input.focus();
 
     }
-
 }
 
 
 /* =========================================
-   ENTER KEY FOR PASSWORD
+   ENTER PASSWORD WITH ENTER KEY
 ========================================= */
 
 document.addEventListener(
@@ -358,25 +331,23 @@ document.addEventListener(
     function() {
 
         const input =
-            document.getElementById("password-input");
-
-
-        if (input) {
-
-            input.addEventListener(
-                "keydown",
-                function(event) {
-
-                    if (event.key === "Enter") {
-
-                        checkPassword();
-
-                    }
-
-                }
+            document.getElementById(
+                "password-input"
             );
 
-        }
+
+        input.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.key === "Enter") {
+
+                    checkPassword();
+
+                }
+
+            }
+        );
 
     }
 );
@@ -400,40 +371,43 @@ function startGame() {
     gameRunning = true;
 
 
-    document.getElementById("score")
-        .innerText = score;
+    document.getElementById(
+        "score"
+    ).innerText = score;
 
 
-    document.getElementById("timer")
-        .innerText = timeLeft;
+    document.getElementById(
+        "timer"
+    ).innerText = timeLeft;
 
 
-    document.getElementById("game-message")
-        .innerText = "";
+    document.getElementById(
+        "game-message"
+    ).innerText = "";
 
 
-    document.getElementById("start-game-btn")
-        .style.display = "none";
+    document.getElementById(
+        "start-game-btn"
+    ).style.display = "none";
 
 
     const gameArea =
-        document.getElementById("game-area");
+        document.getElementById(
+            "game-area"
+        );
 
 
     gameArea.innerHTML = "";
 
-
-    /*
-        Start countdown.
-    */
 
     gameTimer =
         setInterval(function() {
 
             timeLeft--;
 
-            document.getElementById("timer")
-                .innerText = timeLeft;
+            document.getElementById(
+                "timer"
+            ).innerText = timeLeft;
 
 
             if (timeLeft <= 0) {
@@ -446,7 +420,6 @@ function startGame() {
 
 
     createHeart();
-
 }
 
 
@@ -462,7 +435,9 @@ function createHeart() {
 
 
     const gameArea =
-        document.getElementById("game-area");
+        document.getElementById(
+            "game-area"
+        );
 
 
     const heart =
@@ -477,10 +452,6 @@ function createHeart() {
         "❤️";
 
 
-    /*
-        Random position
-    */
-
     const maxX =
         gameArea.clientWidth - 50;
 
@@ -488,19 +459,12 @@ function createHeart() {
         gameArea.clientHeight - 50;
 
 
-    const x =
-        Math.random() * maxX;
-
-    const y =
-        Math.random() * maxY;
-
-
     heart.style.left =
-        x + "px";
+        Math.random() * maxX + "px";
 
 
     heart.style.top =
-        y + "px";
+        Math.random() * maxY + "px";
 
 
     heart.onclick =
@@ -514,8 +478,9 @@ function createHeart() {
             score++;
 
 
-            document.getElementById("score")
-                .innerText = score;
+            document.getElementById(
+                "score"
+            ).innerText = score;
 
 
             heart.remove();
@@ -535,7 +500,6 @@ function createHeart() {
 
 
     gameArea.appendChild(heart);
-
 }
 
 
@@ -547,70 +511,65 @@ function winGame() {
 
     gameRunning = false;
 
-
     clearInterval(gameTimer);
 
 
-    document.getElementById("game-message")
-        .innerText =
+    document.getElementById(
+        "game-message"
+    ).innerText =
         "You caught all the hearts! ❤️";
 
 
     setTimeout(function() {
 
-        showScreen("birthday-screen");
+        showScreen(
+            "birthday-screen"
+        );
 
     }, 1000);
-
 }
 
 
 /* =========================================
-   END GAME
+   GAME OVER
 ========================================= */
 
 function endGame() {
 
     gameRunning = false;
 
-
     clearInterval(gameTimer);
 
 
-    document.getElementById("game-message")
-        .innerText =
-        "Time's up! ❤️";
+    document.getElementById(
+        "game-message"
+    ).innerText =
+        "Time's up! Try again ❤️";
 
 
-    document.getElementById("start-game-btn")
-        .style.display = "inline-block";
+    document.getElementById(
+        "start-game-btn"
+    ).style.display = "inline-block";
 
 
-    document.getElementById("start-game-btn")
-        .innerText = "Try Again 💕";
-
+    document.getElementById(
+        "start-game-btn"
+    ).innerText =
+        "Try Again 💕";
 }
 
 
 /* =========================================
-   PAGE LOAD
+   ALWAYS START WITH SCANNER
 ========================================= */
 
 window.addEventListener(
     "load",
     function() {
 
-        /*
-            IMPORTANT:
-
-            Scanner is the first screen.
-
-            We DO NOT automatically
-            open the camera because some
-            browsers require a user gesture.
-        */
-
-        showScreen("scanner-screen");
+        showScreen(
+            "scanner-screen"
+        );
 
     }
 );

@@ -4,971 +4,12 @@
     box-sizing: border-box;
 }
 
-
-html {
-    scroll-behavior: smooth;
-}
-
-
-body {
-
-    min-height: 100vh;
-
-    font-family: Arial, sans-serif;
-
-    color: white;
-
-    overflow-x: hidden;
-
-    background:
-        radial-gradient(
-            circle at top left,
-            #ff4f91,
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at bottom right,
-            #8e44ad,
-            transparent 35%
-        ),
-        linear-gradient(
-            135deg,
-            #170018,
-            #3b0738,
-            #160020
-        );
-}
-
-
-/* ============================= */
-/* SCREEN */
-/* ============================= */
-
-.screen {
-
-    min-height: 100vh;
-
-    display: none;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 25px;
-}
-
-
-.screen.active {
-    display: flex;
-}
-
-
-/* ============================= */
-/* CARD */
-/* ============================= */
-
-.card {
-
-    width: min(900px, 95%);
-
-    padding: 40px;
-
-    text-align: center;
-
-    border-radius: 30px;
-
-    background:
-        rgba(255,255,255,0.10);
-
-    border:
-        1px solid rgba(255,255,255,0.20);
-
-    backdrop-filter: blur(15px);
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,0.40);
-}
-
-
-/* ============================= */
-/* HEADINGS */
-/* ============================= */
-
-h1 {
-
-    font-size: 42px;
-
-    margin-bottom: 20px;
-
-    text-shadow:
-        0 0 20px rgba(255,100,180,0.7);
-}
-
-
-h1 span {
-    color: #ff8fc7;
-}
-
-
-p {
-    line-height: 1.7;
-}
-
-
-/* ============================= */
-/* BUTTON */
-/* ============================= */
-
-button {
-
-    border: none;
-
-    padding: 15px 28px;
-
-    margin-top: 25px;
-
-    border-radius: 50px;
-
-    font-size: 16px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-    color: white;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ff4f91,
-            #d63384
-        );
-
-    box-shadow:
-        0 8px 25px rgba(255,60,150,0.35);
-
-    transition: 0.3s;
-}
-
-
-button:hover {
-
-    transform:
-        translateY(-3px)
-        scale(1.03);
-
-    box-shadow:
-        0 12px 30px rgba(255,80,170,0.55);
-}
-
-
-/* ============================= */
-/* SCANNER */
-/* ============================= */
-
-.scanner-card {
-
-    max-width: 650px;
-}
-
-
-.scanner-icon {
-
-    font-size: 70px;
-
-    margin-bottom: 15px;
-
-    animation:
-        floating 2s infinite ease-in-out;
-}
-
-
-.scanner-container {
-
-    width: min(450px, 100%);
-
-    height: 450px;
-
-    margin: 30px auto;
-
-    position: relative;
-
-    overflow: hidden;
-
-    border-radius: 25px;
-
-    background: black;
-
-    border:
-        2px solid rgba(255,255,255,0.25);
-
-    box-shadow:
-        0 0 40px rgba(255,70,160,0.35);
-}
-
-
-#camera {
-
-    width: 100%;
-
-    height: 100%;
-
-    display: block;
-
-    object-fit: cover;
-}
-
-
-.scanner-frame {
-
-    position: absolute;
-
-    width: 280px;
-
-    height: 280px;
-
-    left: 50%;
-
-    top: 50%;
-
-    transform: translate(-50%, -50%);
-
-    pointer-events: none;
-}
-
-
-/* Scanner corners */
-
-.corner {
-
-    position: absolute;
-
-    width: 45px;
-
-    height: 45px;
-
-    border-color: #ff8fc7;
-
-    border-style: solid;
-
-}
-
-
-.top-left {
-
-    top: 0;
-    left: 0;
-
-    border-width:
-        5px 0 0 5px;
-}
-
-
-.top-right {
-
-    top: 0;
-    right: 0;
-
-    border-width:
-        5px 5px 0 0;
-}
-
-
-.bottom-left {
-
-    bottom: 0;
-    left: 0;
-
-    border-width:
-        0 0 5px 5px;
-}
-
-
-.bottom-right {
-
-    bottom: 0;
-    right: 0;
-
-    border-width:
-        0 5px 5px 0;
-}
-
-
-/* Moving scan line */
-
-.scan-line {
-
-    position: absolute;
-
-    width: 100%;
-
-    height: 3px;
-
-    top: 0;
-
-    left: 0;
-
-    background: #ff4f91;
-
-    box-shadow:
-        0 0 15px #ff4f91;
-
-    animation:
-        scanning 2s infinite linear;
-}
-
-
-@keyframes scanning {
-
-    0% {
-        top: 0;
-    }
-
-    50% {
-        top: calc(100% - 3px);
-    }
-
-    100% {
-        top: 0;
-    }
-}
-
-
-.scanner-status {
-
-    min-height: 28px;
-
-    color: #ffacd4;
-
-    font-weight: bold;
-}
-
-
-/* Hide canvas */
-
-#qr-canvas {
-
-    display: none;
-}
-
-
-/* ============================= */
-/* PASSWORD */
-/* ============================= */
-
-.password-card {
-
-    max-width: 550px;
-}
-
-
-.lock-icon {
-
-    font-size: 80px;
-
-    margin-bottom: 20px;
-
-    animation:
-        floating 2s infinite ease-in-out;
-}
-
-
-.password-card input {
-
-    display: block;
-
-    width: 100%;
-
-    max-width: 350px;
-
-    margin: 25px auto 0;
-
-    padding: 16px 20px;
-
-    border:
-        2px solid rgba(255,255,255,0.25);
-
-    border-radius: 50px;
-
-    outline: none;
-
-    text-align: center;
-
-    font-size: 17px;
-
-    color: white;
-
-    background:
-        rgba(0,0,0,0.25);
-}
-
-
-.password-card input::placeholder {
-
-    color:
-        rgba(255,255,255,0.7);
-}
-
-
-.password-card input:focus {
-
-    border-color:
-        #ff8fc7;
-
-    box-shadow:
-        0 0 20px rgba(255,80,170,0.3);
-}
-
-
-#password-message {
-
-    min-height: 25px;
-
-    margin-top: 15px;
-
-    color: #ff9dcc;
-}
-
-
-.small-text {
-
-    margin-top: 10px;
-
-    opacity: 0.75;
-
-    font-size: 14px;
-}
-
-
-/* ============================= */
-/* GAME */
-/* ============================= */
-
-.game-info {
-
-    display: flex;
-
-    justify-content: space-around;
-
-    margin: 25px 0;
-
-    font-size: 20px;
-}
-
-
-#game-area {
-
-    width: 100%;
-
-    height: 400px;
-
-    position: relative;
-
-    overflow: hidden;
-
-    border-radius: 25px;
-
-    border:
-        1px solid rgba(255,255,255,0.15);
-
-    background:
-        rgba(0,0,0,0.15);
-}
-
-
-#heart {
-
-    position: absolute;
-
-    margin: 0;
-
-    padding: 0;
-
-    width: 60px;
-
-    height: 60px;
-
-    font-size: 40px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: transparent;
-
-    box-shadow: none;
-
-    transition: none;
-}
-
-
-#heart:hover {
-
-    transform: scale(1.2);
-
-    box-shadow: none;
-}
-
-
-#game-message {
-
-    margin-top: 20px;
-
-    font-size: 18px;
-}
-
-
-/* ============================= */
-/* BIRTHDAY */
-/* ============================= */
-
-.cake {
-
-    font-size: 100px;
-
-    animation:
-        floating 2s infinite ease-in-out;
-}
-
-
-.big-heart {
-
-    font-size: 80px;
-
-    margin: 20px;
-
-    animation:
-        heartbeat 1.2s infinite;
-}
-
-
-.birthday-text {
-
-    font-size: 20px;
-
-    margin-top: 20px;
-}
-
-
-/* ============================= */
-/* MEMORIES */
-/* ============================= */
-
-.memories-card {
-
-    width: min(1100px, 95%);
-}
-
-
-.subtitle {
-
-    margin-bottom: 30px;
-
-    font-size: 18px;
-
-    opacity: 0.85;
-}
-
-
-.gallery {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    gap: 25px;
-
-    margin-top: 30px;
-}
-
-
-.memory-card {
-
-    overflow: hidden;
-
-    border-radius: 22px;
-
-    background:
-        rgba(255,255,255,0.10);
-
-    border:
-        1px solid rgba(255,255,255,0.20);
-
-    transition: 0.4s;
-}
-
-
-.memory-card:hover {
-
-    transform:
-        translateY(-8px);
-
-    box-shadow:
-        0 15px 40px rgba(255,80,170,0.3);
-}
-
-
-/* ============================= */
-/* PHOTO */
-/* ============================= */
-
-.photo-box {
-
-    width: 100%;
-
-    height: 400px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    overflow: hidden;
-
-    padding: 10px;
-
-    background:
-        rgba(0,0,0,0.30);
-}
-
-
-.photo-box img {
-
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: contain;
-
-    display: block;
-
-    border-radius: 14px;
-}
-
-
-.memory-caption {
-
-    padding: 20px;
-
-    text-align: center;
-}
-
-
-.memory-caption h3 {
-
-    margin-bottom: 8px;
-
-    color: #ffacd4;
-
-    font-size: 20px;
-}
-
-
-.memory-caption p {
-
-    font-size: 14px;
-
-    opacity: 0.8;
-}
-
-
-/* ============================= */
-/* LOVE LETTER */
-/* ============================= */
-
-.love-card {
-
-    max-width: 800px;
-}
-
-
-.envelope {
-
-    font-size: 80px;
-
-    margin-bottom: 15px;
-}
-
-
-.letter {
-
-    text-align: left;
-
-    padding: 30px;
-
-    margin-top: 25px;
-
-    border-radius: 20px;
-
-    background:
-        rgba(255,255,255,0.08);
-
-    border-left:
-        4px solid #ff6cab;
-}
-
-
-.letter p {
-
-    margin-bottom: 20px;
-}
-
-
-.signature {
-
-    text-align: right;
-
-    color: #ffacd4;
-}
-
-
-/* ============================= */
-/* FINAL */
-/* ============================= */
-
-.final-card {
-
-    max-width: 800px;
-}
-
-
-.fireworks {
-
-    font-size: 70px;
-
-    animation:
-        floating 2s infinite;
-}
-
-
-.cake-big {
-
-    font-size: 100px;
-
-    margin: 10px;
-
-    animation:
-        floating 2s infinite ease-in-out;
-}
-
-
-.final-card h2 {
-
-    font-size: 40px;
-
-    color: #ff9dcc;
-
-    margin: 20px;
-}
-
-
-.heart-animation {
-
-    font-size: 90px;
-
-    animation:
-        heartbeat 1s infinite;
-}
-
-
-.final-message {
-
-    margin: 20px auto;
-
-    max-width: 550px;
-
-    font-size: 18px;
-}
-
-
-.forever {
-
-    margin-top: 30px;
-
-    font-size: 24px;
-
-    color: #ffacd4;
-
-    font-weight: bold;
-}
-
-
-/* ============================= */
-/* FLOATING HEARTS */
-/* ============================= */
-
-#hearts-container {
-
-    position: fixed;
-
-    inset: 0;
-
-    pointer-events: none;
-
-    overflow: hidden;
-
-    z-index: 100;
-}
-
-
-.floating-heart {
-
-    position: absolute;
-
-    bottom: -50px;
-
-    font-size: 20px;
-
-    animation:
-        floatUp linear forwards;
-
-    opacity: 0.8;
-}
-
-
-@keyframes floatUp {
-
-    0% {
-
-        transform:
-            translateY(0)
-            rotate(0deg);
-
-        opacity: 0;
-    }
-
-    10% {
-        opacity: 1;
-    }
-
-    100% {
-
-        transform:
-            translateY(-110vh)
-            rotate(360deg);
-
-        opacity: 0;
-    }
-}
-
-
-/* ============================= */
-/* ANIMATIONS */
-/* ============================= */
-
-@keyframes heartbeat {
-
-    0%,
-    100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.15);
-    }
-}
-
-
-@keyframes floating {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-12px);
-    }
-}
-
-
-/* ============================= */
-/* MOBILE */
-/* ============================= */
-
-@media (max-width: 700px) {
-
-    .screen {
-        padding: 15px;
-    }
-
-
-    .card {
-        padding: 25px 18px;
-    }
-
-
-    h1 {
-        font-size: 30px;
-    }
-
-
-    .scanner-container {
-
-        height: 400px;
-
-        width: 100%;
-    }
-
-
-    .scanner-frame {
-
-        width: 250px;
-
-        height: 250px;
-    }
-
-
-    #game-area {
-
-        height: 350px;
-    }
-
-
-    .gallery {
-
-        grid-template-columns: 1fr;
-    }
-
-
-    .photo-box {
-
-        height: 420px;
-
-        padding: 8px;
-    }
-
-
-    .photo-box img {
-
-        width: 100%;
-
-        height: 100%;
-
-        object-fit: contain;
-    }
-
-
-    .game-info {
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     min-height: 100vh;
 
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+
+    color: white;
 
     background:
         linear-gradient(
@@ -979,15 +20,13 @@ body {
             #f64f59
         );
 
-    color: white;
-
     overflow-x: hidden;
 }
 
 
-/* =========================================
-   SCREEN
-========================================= */
+/* =========================
+   SCREENS
+========================= */
 
 .screen {
     min-height: 100vh;
@@ -997,7 +36,7 @@ body {
     align-items: center;
     justify-content: center;
 
-    padding: 25px;
+    padding: 20px;
 
     animation: fadeIn 0.7s ease;
 }
@@ -1007,46 +46,42 @@ body {
 }
 
 
-/* =========================================
+/* =========================
    CARD
-========================================= */
+========================= */
 
 .card {
     width: 100%;
-    max-width: 650px;
+
+    max-width: 700px;
 
     padding: 40px 30px;
 
     text-align: center;
 
     background:
-        rgba(255, 255, 255, 0.15);
+        rgba(255, 255, 255, 0.16);
 
     backdrop-filter: blur(15px);
 
-    -webkit-backdrop-filter: blur(15px);
-
     border:
-        1px solid rgba(255, 255, 255, 0.3);
+        1px solid rgba(255,255,255,0.3);
 
     border-radius: 30px;
 
     box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.25);
+        0 20px 50px rgba(0,0,0,0.25);
 }
 
 
-/* =========================================
+/* =========================
    TEXT
-========================================= */
+========================= */
 
 h1 {
     font-size: 42px;
 
     margin-bottom: 15px;
-
-    text-shadow:
-        0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 h2 {
@@ -1058,34 +93,28 @@ h2 {
 p {
     font-size: 18px;
 
-    line-height: 1.7;
+    line-height: 1.6;
 
     margin-bottom: 15px;
-}
-
-.subtitle {
-    font-size: 20px;
 }
 
 .small-text {
     font-size: 13px;
 
-    opacity: 0.85;
-
-    margin-top: 15px;
+    opacity: 0.8;
 }
 
 
-/* =========================================
-   HEART
-========================================= */
+/* =========================
+   HEARTS
+========================= */
 
 .heart-icon {
     font-size: 55px;
 
     margin-bottom: 10px;
 
-    animation: heartbeat 1.5s infinite;
+    animation: heartbeat 1.3s infinite;
 }
 
 .big-heart {
@@ -1095,9 +124,9 @@ p {
 }
 
 
-/* =========================================
+/* =========================
    BUTTON
-========================================= */
+========================= */
 
 button {
     border: none;
@@ -1119,18 +148,13 @@ button {
     cursor: pointer;
 
     box-shadow:
-        0 8px 20px rgba(0, 0, 0, 0.2);
+        0 8px 20px rgba(0,0,0,0.2);
 
-    transition:
-        transform 0.2s,
-        box-shadow 0.2s;
+    transition: 0.2s;
 }
 
 button:hover {
     transform: translateY(-3px);
-
-    box-shadow:
-        0 12px 25px rgba(0, 0, 0, 0.3);
 }
 
 button:active {
@@ -1138,9 +162,9 @@ button:active {
 }
 
 
-/* =========================================
+/* =========================
    QR SCANNER
-========================================= */
+========================= */
 
 .scanner-card {
     max-width: 550px;
@@ -1163,11 +187,10 @@ button:active {
 
     background: #111;
 
-    border:
-        3px solid rgba(255, 255, 255, 0.7);
+    border: 3px solid white;
 
     box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.35);
+        0 10px 30px rgba(0,0,0,0.4);
 }
 
 #camera {
@@ -1181,9 +204,9 @@ button:active {
 }
 
 
-/* Scanner corners */
+/* Scanner frame */
 
-.scanner-corners {
+.scanner-frame {
     position: absolute;
 
     top: 12%;
@@ -1192,24 +215,21 @@ button:active {
     width: 76%;
     height: 76%;
 
-    border:
-        4px solid white;
+    border: 4px solid white;
 
     border-radius: 20px;
-
-    box-shadow:
-        0 0 0 9999px rgba(0, 0, 0, 0.15);
 
     pointer-events: none;
 }
 
 
-/* Moving scanner line */
+/* Scan line */
 
 .scan-line {
     position: absolute;
 
     left: 15%;
+
     width: 70%;
 
     height: 3px;
@@ -1217,7 +237,7 @@ button:active {
     background: white;
 
     box-shadow:
-        0 0 12px white;
+        0 0 15px white;
 
     animation:
         scanMove 2s infinite ease-in-out;
@@ -1226,9 +246,9 @@ button:active {
 }
 
 
-/* =========================================
+/* =========================
    PASSWORD
-========================================= */
+========================= */
 
 #password-input {
     display: block;
@@ -1250,8 +270,6 @@ button:active {
     font-size: 17px;
 
     text-align: center;
-
-    background: rgba(255, 255, 255, 0.95);
 }
 
 #password-message {
@@ -1261,9 +279,9 @@ button:active {
 }
 
 
-/* =========================================
+/* =========================
    GAME
-========================================= */
+========================= */
 
 .game-info {
     display: flex;
@@ -1291,10 +309,7 @@ button:active {
     border-radius: 20px;
 
     background:
-        rgba(0, 0, 0, 0.18);
-
-    border:
-        2px solid rgba(255, 255, 255, 0.3);
+        rgba(0,0,0,0.2);
 }
 
 .game-heart {
@@ -1317,24 +332,9 @@ button:active {
 }
 
 
-/* =========================================
-   BIRTHDAY
-========================================= */
-
-.birthday-card {
-    max-width: 700px;
-}
-
-.birthday-text {
-    margin: 20px auto;
-
-    max-width: 550px;
-}
-
-
-/* =========================================
+/* =========================
    GALLERY
-========================================= */
+========================= */
 
 .memories-card {
     max-width: 900px;
@@ -1350,6 +350,9 @@ button:active {
 
     margin: 30px 0;
 }
+
+
+/* PHOTO BOX */
 
 .photo-box {
     width: 100%;
@@ -1367,10 +370,13 @@ button:active {
     padding: 10px;
 
     background:
-        rgba(0, 0, 0, 0.30);
+        rgba(0,0,0,0.3);
 
     border-radius: 20px;
 }
+
+
+/* ACTUAL IMAGE */
 
 .photo-box img {
     width: 100%;
@@ -1385,9 +391,25 @@ button:active {
 }
 
 
-/* =========================================
-   LOVE LETTER
-========================================= */
+/* Image not found */
+
+.photo-box.image-error::after {
+    content:
+        "Photo not found\nCheck images folder";
+
+    white-space: pre-line;
+
+    font-size: 16px;
+
+    text-align: center;
+
+    opacity: 0.8;
+}
+
+
+/* =========================
+   LETTER
+========================= */
 
 .love-card {
     max-width: 750px;
@@ -1401,13 +423,9 @@ button:active {
     text-align: left;
 
     background:
-        rgba(255, 255, 255, 0.12);
+        rgba(255,255,255,0.12);
 
     border-radius: 20px;
-}
-
-.letter p {
-    margin-bottom: 20px;
 }
 
 .signature {
@@ -1419,9 +437,9 @@ button:active {
 }
 
 
-/* =========================================
+/* =========================
    FINAL
-========================================= */
+========================= */
 
 .final-card {
     max-width: 750px;
@@ -1449,9 +467,9 @@ button:active {
 }
 
 
-/* =========================================
+/* =========================
    ANIMATIONS
-========================================= */
+========================= */
 
 @keyframes fadeIn {
 
@@ -1477,12 +495,8 @@ button:active {
         transform: scale(1);
     }
 
-    25% {
-        transform: scale(1.15);
-    }
-
     50% {
-        transform: scale(1);
+        transform: scale(1.15);
     }
 }
 
@@ -1504,36 +518,31 @@ button:active {
 @keyframes floatHearts {
 
     0% {
-        transform:
-            translateY(0);
+        transform: translateY(0);
     }
 
     50% {
-        transform:
-            translateY(-15px);
+        transform: translateY(-15px);
     }
 
     100% {
-        transform:
-            translateY(0);
+        transform: translateY(0);
     }
 }
 
 
-/* =========================================
+/* =========================
    MOBILE
-========================================= */
+========================= */
 
 @media (max-width: 600px) {
 
     .screen {
-        padding: 15px;
+        padding: 12px;
     }
 
     .card {
         padding: 30px 18px;
-
-        border-radius: 25px;
     }
 
     h1 {
@@ -1567,20 +576,4 @@ button:active {
     .big-heart {
         font-size: 70px;
     }
-}
-        font-size: 16px;
-    }
-
-
-    .letter {
-
-        padding: 20px;
-    }
-
-
-    .final-card h2 {
-
-        font-size: 30px;
-    }
-
 }
