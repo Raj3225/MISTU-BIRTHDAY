@@ -1,153 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>For Mistu ❤️</title>
 
     <link rel="stylesheet" href="style.css">
-
 </head>
-
 
 <body>
 
-
-    <!-- Floating background hearts -->
-
-    <div id="hearts-container"></div>
-
-
-
-    <!-- ===================================== -->
-    <!-- 1. REAL QR CAMERA SCANNER -->
-    <!-- ===================================== -->
-
-    <section
-        id="scanner-screen"
-        class="screen active">
+    <!-- =========================================
+         QR SCANNER SCREEN
+    ========================================== -->
+    <section id="scanner-screen" class="screen active">
 
         <div class="card scanner-card">
 
-            <div class="scanner-icon">
-                📷
-            </div>
+            <div class="heart-icon">❤️</div>
 
-            <h1>
-                Scan Your Surprise ❤️
-            </h1>
+            <h1>For Mistu</h1>
 
-            <p>
-                Allow camera access and scan
-                the special QR code.
+            <p class="subtitle">
+                First, scan the secret QR code 📷
             </p>
-
-
-            <!-- Camera area -->
 
             <div class="scanner-container">
 
                 <video
                     id="camera"
                     autoplay
-                    playsinline>
+                    playsinline
+                    muted>
                 </video>
 
+                <div class="scanner-corners"></div>
 
-                <!-- Scanner frame -->
-
-                <div class="scanner-frame">
-
-                    <div class="corner top-left"></div>
-
-                    <div class="corner top-right"></div>
-
-                    <div class="corner bottom-left"></div>
-
-                    <div class="corner bottom-right"></div>
-
-                    <div class="scan-line"></div>
-
-                </div>
+                <div class="scan-line"></div>
 
             </div>
 
-
-            <p
-                id="scanner-status"
-                class="scanner-status">
-
-                Starting camera...
-
+            <p id="scanner-status">
+                Tap the button and allow camera access 📷
             </p>
 
-
-            <button
-                id="start-camera-button"
-                onclick="startScanner()">
-
+            <button id="start-camera-btn" onclick="startScanner()">
                 📷 Start Scanner
-
             </button>
 
+            <p class="small-text">
+                Scan the QR code from another phone, laptop or printed paper.
+            </p>
 
-            <!-- Hidden canvas used to read QR -->
-
-            <canvas
-                id="qr-canvas">
-            </canvas>
-
+            <canvas id="qr-canvas" hidden></canvas>
 
         </div>
 
     </section>
 
 
+    <!-- =========================================
+         PASSWORD SCREEN
+    ========================================== -->
+    <section id="password-screen" class="screen">
 
-    <!-- ===================================== -->
-    <!-- 2. PASSWORD -->
-    <!-- ===================================== -->
+        <div class="card">
 
-    <section
-        id="password-screen"
-        class="screen">
+            <div class="heart-icon">🔐</div>
 
-        <div class="card password-card">
-
-            <div class="lock-icon">
-                🔐
-            </div>
-
-            <h1>
-                Welcome, Mistu ❤️
-            </h1>
+            <h1>Secret Door ❤️</h1>
 
             <p>
-                You found the secret entrance.
+                The QR worked!
             </p>
 
-            <p class="small-text">
-                Now enter the password...
+            <p>
+                Now enter the secret password.
             </p>
-
 
             <input
                 type="password"
                 id="password-input"
-                placeholder="Enter secret password"
-                autocomplete="off">
-
+                placeholder="Enter password">
 
             <button onclick="checkPassword()">
                 Unlock ❤️
             </button>
-
 
             <p id="password-message"></p>
 
@@ -156,32 +95,26 @@
     </section>
 
 
-
-    <!-- ===================================== -->
-    <!-- 3. GAME -->
-    <!-- ===================================== -->
-
-    <section
-        id="game-screen"
-        class="screen">
+    <!-- =========================================
+         GAME SCREEN
+    ========================================== -->
+    <section id="game-screen" class="screen">
 
         <div class="card game-card">
 
-            <h1>
-                Catch My Hearts 💕
-            </h1>
+            <div class="heart-icon">💗</div>
+
+            <h1>Catch the Hearts!</h1>
 
             <p>
-                Catch 5 hearts to unlock
-                your birthday surprise!
+                Catch <b>5 hearts</b> before the time runs out.
             </p>
-
 
             <div class="game-info">
 
                 <span>
                     ❤️ Score:
-                    <b id="score">0</b>/5
+                    <b id="score">0</b>
                 </span>
 
                 <span>
@@ -191,404 +124,204 @@
 
             </div>
 
+            <div id="game-area"></div>
 
-            <div id="game-area">
+            <p id="game-message"></p>
 
-                <button
-                    id="heart"
-                    onclick="catchHeart()">
-
-                    ❤️
-
-                </button>
-
-            </div>
-
-
-            <p id="game-message">
-                Catch the hearts! 💕
-            </p>
+            <button id="start-game-btn" onclick="startGame()">
+                Start Game 💕
+            </button>
 
         </div>
 
     </section>
 
 
-
-    <!-- ===================================== -->
-    <!-- 4. BIRTHDAY -->
-    <!-- ===================================== -->
-
-    <section
-        id="birthday-screen"
-        class="screen">
+    <!-- =========================================
+         BIRTHDAY SCREEN
+    ========================================== -->
+    <section id="birthday-screen" class="screen">
 
         <div class="card birthday-card">
 
-            <div class="cake">
-                🎂
-            </div>
+            <div class="big-heart">❤️</div>
 
+            <h1>Happy Birthday</h1>
 
-            <h1>
-                Happy Birthday,
-                <span>Mistu</span>! ❤️
-            </h1>
-
+            <h2>Mistu! 🎂💕</h2>
 
             <p class="birthday-text">
-
-                Today is a very special day...
-
-                <br><br>
-
-                Because someone incredibly
-                special was born today. 💕
-
-                <br><br>
-
-                I hope this little surprise
-                makes you smile.
-
+                Today is all about the most special person in my life.
             </p>
 
+            <p class="birthday-text">
+                I hope your day is filled with happiness,
+                smiles, love and beautiful memories.
+            </p>
+
+            <button onclick="showScreen('memories-screen')">
+                Continue ❤️
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         MEMORIES SCREEN
+    ========================================== -->
+    <section id="memories-screen" class="screen">
+
+        <div class="card memories-card">
+
+            <h1>Our Memories 📸</h1>
+
+            <p>
+                Some little pieces of our story ❤️
+            </p>
+
+            <div class="gallery">
+
+                <div class="photo-box">
+                    <img
+                        src="images/photo1.jpg"
+                        alt="Our memory 1">
+                </div>
+
+                <div class="photo-box">
+                    <img
+                        src="images/photo2.jpg"
+                        alt="Our memory 2">
+                </div>
+
+                <div class="photo-box">
+                    <img
+                        src="images/photo3.jpg"
+                        alt="Our memory 3">
+                </div>
+
+                <div class="photo-box">
+                    <img
+                        src="images/photo4.jpg"
+                        alt="Our memory 4">
+                </div>
+
+            </div>
+
+            <button onclick="showScreen('love-screen')">
+                One More Thing 💌
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         LOVE LETTER SCREEN
+    ========================================== -->
+    <section id="love-screen" class="screen">
+
+        <div class="card love-card">
+
+            <div class="heart-icon">💌</div>
+
+            <h1>A Letter For You</h1>
+
+            <div class="letter">
+
+                <p>
+                    My dear Mistu,
+                </p>
+
+                <p>
+                    I don't know if words can ever properly explain
+                    how special you are to me.
+                </p>
+
+                <p>
+                    Every moment with you becomes a memory that
+                    I want to keep forever.
+                </p>
+
+                <p>
+                    Thank you for being a beautiful part of my life.
+                    Thank you for all the smiles, conversations,
+                    little moments and memories.
+                </p>
+
+                <p>
+                    On your birthday, I just want you to know that
+                    you deserve all the happiness in the world.
+                </p>
+
+                <p>
+                    Keep smiling.
+                    Keep being the amazing person you are.
+                </p>
+
+                <p>
+                    And no matter how many birthdays come and go,
+                    I hope I get to celebrate many more of them with you.
+                </p>
+
+                <p class="signature">
+                    With lots of love,<br>
+                    — Raj ❤️
+                </p>
+
+            </div>
+
+            <button onclick="showScreen('final-screen')">
+                Final Surprise ❤️
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         FINAL SCREEN
+    ========================================== -->
+    <section id="final-screen" class="screen">
+
+        <div class="card final-card">
 
             <div class="big-heart">
                 ❤️
             </div>
 
-
-            <button onclick="showMemories()">
-                See Our Memories 📸
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ===================================== -->
-    <!-- 5. MEMORIES -->
-    <!-- ===================================== -->
-
-    <section
-        id="memories-screen"
-        class="screen">
-
-        <div class="card memories-card">
-
-            <h1>
-                Our Memories 📸
-            </h1>
-
-
-            <p class="subtitle">
-                Some moments I never want
-                to forget ❤️
-            </p>
-
-
-            <div class="gallery">
-
-
-                <!-- PHOTO 1 -->
-
-                <div class="memory-card">
-
-                    <div class="photo-box">
-
-                        <img
-                            src="./images/photo1.jpg"
-                            alt="Memory 1">
-
-                    </div>
-
-
-                    <div class="memory-caption">
-
-                        <h3>
-                            Our Beautiful Moment ❤️
-                        </h3>
-
-                        <p>
-                            A moment I'll always remember.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- PHOTO 2 -->
-
-                <div class="memory-card">
-
-                    <div class="photo-box">
-
-                        <img
-                            src="./images/photo2.jpg"
-                            alt="Memory 2">
-
-                    </div>
-
-
-                    <div class="memory-caption">
-
-                        <h3>
-                            A Special Memory 💕
-                        </h3>
-
-                        <p>
-                            One of my favorite moments.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- PHOTO 3 -->
-
-                <div class="memory-card">
-
-                    <div class="photo-box">
-
-                        <img
-                            src="./images/photo3.jpg"
-                            alt="Memory 3">
-
-                    </div>
-
-
-                    <div class="memory-caption">
-
-                        <h3>
-                            You & Me ❤️
-                        </h3>
-
-                        <p>
-                            Memories that mean so much to me.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- PHOTO 4 -->
-
-                <div class="memory-card">
-
-                    <div class="photo-box">
-
-                        <img
-                            src="./images/photo4.jpg"
-                            alt="Memory 4">
-
-                    </div>
-
-
-                    <div class="memory-caption">
-
-                        <h3>
-                            My Favorite Memory 💖
-                        </h3>
-
-                        <p>
-                            And hopefully many more to come.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-
-            <button onclick="showLove()">
-                Read My Heart 💌
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ===================================== -->
-    <!-- 6. LOVE LETTER -->
-    <!-- ===================================== -->
-
-    <section
-        id="love-screen"
-        class="screen">
-
-        <div class="card love-card">
-
-            <div class="envelope">
-                💌
-            </div>
-
-
-            <h1>
-                A Letter For You
-            </h1>
-
-
-            <div class="letter">
-
-                <p>
-                    Dear Mistu ❤️
-                </p>
-
-
-                <p>
-                    I don't know if words will ever
-                    be enough to explain how special
-                    you are to me.
-                </p>
-
-
-                <p>
-                    You have brought so many beautiful
-                    moments into my life, and every
-                    memory with you means more to me
-                    than I can explain.
-                </p>
-
-
-                <p>
-                    Your smile can make an ordinary
-                    day feel special. Your presence
-                    makes everything a little brighter.
-                </p>
-
-
-                <p>
-                    On your birthday, I just want you
-                    to know that you are loved,
-                    appreciated, and incredibly special
-                    to me. ❤️
-                </p>
-
-
-                <p>
-                    I hope this new year of your life
-                    brings you happiness, success,
-                    peace and everything beautiful
-                    that you deserve.
-                </p>
-
-
-                <p>
-                    And I hope we create many more
-                    beautiful memories together.
-                </p>
-
-
-                <p class="signature">
-
-                    With all my love,
-
-                    <br><br>
-
-                    <strong>
-                        — Raj ❤️
-                    </strong>
-
-                </p>
-
-            </div>
-
-
-            <button onclick="showFinal()">
-                One Last Surprise ❤️
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ===================================== -->
-    <!-- 7. FINAL -->
-    <!-- ===================================== -->
-
-    <section
-        id="final-screen"
-        class="screen">
-
-        <div class="card final-card">
-
-            <div class="fireworks">
-                ✨
-            </div>
-
-
-            <div class="cake-big">
-                🎂
-            </div>
-
-
-            <h1>
-                Happy Birthday,
-                <span>Mistu</span>! ❤️
-            </h1>
-
-
-            <h2>
-                I Love You ❤️
-            </h2>
-
-
-            <div class="heart-animation">
-                ❤️
-            </div>
-
-
-            <p>
-                Thank you for being such a beautiful
-                part of my life.
-            </p>
-
+            <h1>Happy Birthday, Mistu! 🎂</h1>
 
             <p class="final-message">
-
-                Here's to you,
-                here's to us,
-                and here's to many more
-                beautiful memories together. 💕
-
+                You are one of the most beautiful parts
+                of my world.
             </p>
 
+            <p class="final-message">
+                I love you ❤️
+            </p>
 
-            <div class="forever">
-                Forever & Always ❤️
+            <div class="floating-hearts">
+                ❤️ 💕 ❤️ 💗 ❤️ 💕 ❤️
             </div>
+
+            <p class="end-text">
+                Forever & Always ♾️
+            </p>
 
         </div>
 
     </section>
 
 
+    <!-- QR SCANNER LIBRARY -->
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 
-    <!-- QR scanner library -->
-
-    <script
-        src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js">
-    </script>
-
-
-    <!-- Your JavaScript -->
-
+    <!-- YOUR JAVASCRIPT -->
     <script src="script.js"></script>
 
 </body>
-
 </html>
