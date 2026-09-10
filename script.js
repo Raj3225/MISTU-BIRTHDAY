@@ -4,14 +4,11 @@
 
 function showScreen(id) {
 
-    document
-        .querySelectorAll(".screen")
-        .forEach(screen => {
-            screen.classList.remove("active");
-        });
+    document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.remove("active");
+    });
 
-    const screen =
-        document.getElementById(id);
+    const screen = document.getElementById(id);
 
     if (screen) {
         screen.classList.add("active");
@@ -28,90 +25,53 @@ function showScreen(id) {
    OPENING
 ========================================= */
 
-document
-    .getElementById("startBtn")
-    .addEventListener("click", function () {
-
-        showScreen("password-screen");
-
-    });
+document.getElementById("startBtn").onclick = () => {
+    showScreen("password-screen");
+};
 
 
 /* =========================================
    PASSWORD
 ========================================= */
 
-const passwordInput =
-    document.getElementById("password");
+const password = document.getElementById("password");
+const passwordBtn = document.getElementById("passwordBtn");
+const passwordMessage = document.getElementById("passwordMessage");
 
-const passwordBtn =
-    document.getElementById("passwordBtn");
+function unlock() {
 
-const passwordMessage =
-    document.getElementById("passwordMessage");
-
-
-function checkPassword() {
-
-    const password =
-        passwordInput.value.trim();
-
-    if (password === "29thmarch") {
+    if (password.value.trim() === "29thmarch") {
 
         passwordMessage.innerText =
             "Welcome, Mistu ❤️";
 
         passwordBtn.disabled = true;
-
-        passwordInput.disabled = true;
+        password.disabled = true;
 
         setTimeout(() => {
-
             showScreen("envelope-screen");
-
-        }, 900);
+        }, 1000);
 
     } else {
 
         passwordMessage.innerText =
-            "Almost... try again 😜";
+            "Hmm... that's not it 😜";
 
-        passwordInput.value = "";
+        password.value = "";
 
-        passwordInput.focus();
-
+        password.focus();
     }
 }
 
+passwordBtn.onclick = unlock;
 
-passwordBtn.addEventListener(
-    "click",
-    checkPassword
-);
+password.onkeydown = event => {
 
-
-passwordInput.addEventListener(
-    "keydown",
-    function (event) {
-
-        if (event.key === "Enter") {
-
-            checkPassword();
-
-        }
-
+    if (event.key === "Enter") {
+        unlock();
     }
-);
 
-
-passwordInput.addEventListener(
-    "input",
-    function () {
-
-        passwordMessage.innerText = "";
-
-    }
-);
+};
 
 
 /* =========================================
@@ -121,29 +81,23 @@ passwordInput.addEventListener(
 const envelope =
     document.getElementById("envelope");
 
+envelope.onclick = () => {
 
-envelope.addEventListener(
-    "click",
-    function () {
-
-        if (
-            envelope.classList.contains("open")
-        ) {
-            return;
-        }
-
-        envelope.classList.add("open");
-
-        setTimeout(() => {
-
-            showScreen("game-screen");
-
-            startGame();
-
-        }, 1800);
-
+    if (envelope.classList.contains("open")) {
+        return;
     }
-);
+
+    envelope.classList.add("open");
+
+    setTimeout(() => {
+
+        showScreen("game-screen");
+
+        startGame();
+
+    }, 1700);
+
+};
 
 
 /* =========================================
@@ -156,27 +110,24 @@ const gameArea =
 const heart =
     document.getElementById("heart");
 
-const scoreText =
+const score =
     document.getElementById("score");
 
 const gameMessage =
     document.getElementById("game-message");
 
-let score = 0;
-
+let gameScore = 0;
 let gameRunning = false;
 
 
 function startGame() {
 
-    score = 0;
-
+    gameScore = 0;
     gameRunning = true;
 
     heart.style.display = "flex";
 
-    scoreText.innerText =
-        "0 / 5";
+    score.innerText = "0 / 5";
 
     gameMessage.innerText =
         "Catch the glowing heart ❤️";
@@ -191,120 +142,91 @@ function moveHeart() {
         return;
     }
 
-    const width =
-        gameArea.clientWidth;
-
-    const height =
-        gameArea.clientHeight;
-
-    const heartSize =
+    const maxX =
+        gameArea.clientWidth -
         heart.offsetWidth;
 
-    const maxX =
-        Math.max(
-            0,
-            width - heartSize
-        );
-
     const maxY =
-        Math.max(
-            0,
-            height - heartSize
-        );
+        gameArea.clientHeight -
+        heart.offsetHeight;
 
     heart.style.left =
-        Math.random() * maxX + "px";
+        Math.random() * Math.max(maxX, 0) + "px";
 
     heart.style.top =
-        Math.random() * maxY + "px";
+        Math.random() * Math.max(maxY, 0) + "px";
 }
 
 
-heart.addEventListener(
-    "click",
-    function () {
+heart.onclick = () => {
 
-        if (!gameRunning) {
-            return;
-        }
+    if (!gameRunning) {
+        return;
+    }
 
-        createGameHearts();
+    gameScore++;
 
-        score++;
+    score.innerText =
+        `${gameScore} / 5`;
 
-        scoreText.innerText =
-            score + " / 5";
+    createGameExplosion();
 
+    if (gameScore >= 5) {
 
-        const messages = [
-            "Yay! Keep going 💕",
-            "You're good at this 😍",
-            "Three already! ❤️",
-            "One more! 🥰",
-            "You caught all my hearts! ❤️"
-        ];
+        gameRunning = false;
+
+        heart.style.display = "none";
 
         gameMessage.innerText =
-            messages[Math.min(score - 1, 4)];
-
-
-        if (score >= 5) {
-
-            gameRunning = false;
-
-            heart.style.display =
-                "none";
-
-            setTimeout(() => {
-
-                showScreen("cake-screen");
-
-            }, 1300);
-
-        } else {
-
-            moveHeart();
-
-        }
-
-    }
-);
-
-
-function createGameHearts() {
-
-    for (let i = 0; i < 6; i++) {
-
-        const h =
-            document.createElement("div");
-
-        h.innerText =
-            "❤️";
-
-        h.className =
-            "heart-pop";
-
-        h.style.position =
-            "absolute";
-
-        h.style.left =
-            heart.offsetLeft +
-            Math.random() * 50 +
-            "px";
-
-        h.style.top =
-            heart.offsetTop +
-            Math.random() * 50 +
-            "px";
-
-        gameArea.appendChild(h);
+            "You caught all my hearts! ❤️";
 
         setTimeout(() => {
+            showScreen("cake-screen");
+        }, 1200);
 
-            h.remove();
+    } else {
 
+        gameMessage.innerText =
+            "Another one! ❤️";
+
+        moveHeart();
+
+    }
+};
+
+
+function createGameExplosion() {
+
+    for (let i = 0; i < 5; i++) {
+
+        const item =
+            document.createElement("span");
+
+        item.innerText = "❤️";
+
+        item.className = "game-pop";
+
+        item.style.left =
+            heart.offsetLeft + "px";
+
+        item.style.top =
+            heart.offsetTop + "px";
+
+        item.style.setProperty(
+            "--randomX",
+            `${(Math.random() - .5) * 100}px`
+        );
+
+        item.style.setProperty(
+            "--randomY",
+            `${(Math.random() - .5) * 100}px`
+        );
+
+        gameArea.appendChild(item);
+
+        setTimeout(() => {
+            item.remove();
         }, 700);
-
     }
 }
 
@@ -313,70 +235,60 @@ function createGameHearts() {
    CAKE
 ========================================= */
 
-const flame =
-    document.getElementById("flame");
-
 const blowBtn =
     document.getElementById("blowBtn");
+
+const flame =
+    document.getElementById("flame");
 
 const cakeMessage =
     document.getElementById("cakeMessage");
 
+blowBtn.onclick = () => {
 
-blowBtn.addEventListener(
-    "click",
-    function () {
+    flame.classList.add("off");
 
-        flame.classList.add("off");
+    cakeMessage.innerText =
+        "Wish made! ✨❤️";
 
-        cakeMessage.innerText =
-            "Wish made! ✨❤️";
+    blowBtn.innerText =
+        "Wish Sent ❤️";
 
-        blowBtn.innerText =
-            "Wish Sent ❤️";
+    blowBtn.disabled = true;
 
-        blowBtn.disabled = true;
+    setTimeout(() => {
 
-        setTimeout(() => {
+        showScreen("birthday-screen");
 
-            showScreen("birthday-screen");
+        startTyping();
 
-            startTyping();
-
-        }, 1700);
-
-    }
-);
+    }, 1600);
+};
 
 
 /* =========================================
-   TYPING
+   BIRTHDAY TYPING
 ========================================= */
 
 const typingText =
     document.getElementById("typing-text");
 
-
 const birthdayText =
     "You are one of the most special people in my life. Today is all about celebrating YOU. I hope this little surprise makes you smile. ❤️";
 
-
-let typingStarted = false;
-
+let typingDone = false;
 
 function startTyping() {
 
-    if (typingStarted) {
+    if (typingDone) {
         return;
     }
 
-    typingStarted = true;
-
-    typingText.innerText = "";
+    typingDone = true;
 
     let index = 0;
 
-    const interval =
+    const timer =
         setInterval(() => {
 
             typingText.innerText +=
@@ -384,13 +296,8 @@ function startTyping() {
 
             index++;
 
-            if (
-                index >=
-                birthdayText.length
-            ) {
-
-                clearInterval(interval);
-
+            if (index >= birthdayText.length) {
+                clearInterval(timer);
             }
 
         }, 35);
@@ -398,395 +305,196 @@ function startTyping() {
 
 
 /* =========================================
+   LOVE COUNTER
+========================================= */
+
+document.getElementById("counterBtn").onclick = () => {
+
+    showScreen("counter-screen");
+
+};
+
+
+const counterHeart =
+    document.getElementById(
+        "loveCounterHeart"
+    );
+
+const counterNumber =
+    document.getElementById(
+        "counterNumber"
+    );
+
+const counterText =
+    document.getElementById(
+        "counterText"
+    );
+
+let loveCount = 0;
+
+
+counterHeart.onclick = () => {
+
+    loveCount++;
+
+    counterNumber.innerText =
+        loveCount;
+
+    counterHeart.style.transform =
+        "scale(1.25)";
+
+    setTimeout(() => {
+        counterHeart.style.transform =
+            "scale(1)";
+    }, 150);
+
+
+    if (loveCount < 5) {
+
+        counterText.innerText =
+            "A little more... ❤️";
+
+    } else if (loveCount < 10) {
+
+        counterText.innerText =
+            "Okay... quite a lot ❤️";
+
+    } else if (loveCount < 20) {
+
+        counterText.innerText =
+            "More than you know 🥺❤️";
+
+    } else {
+
+        counterNumber.innerText =
+            "∞";
+
+        counterText.innerText =
+            "There. That's the answer. ❤️";
+
+    }
+
+};
+
+
+/* =========================================
    STORY
 ========================================= */
 
-document
-    .getElementById("storyBtn")
-    .addEventListener(
-        "click",
-        function () {
+document.getElementById("storyBtn").onclick = () => {
+    showScreen("story-screen");
+};
 
-            showScreen("story-screen");
+document.getElementById("memoriesBtn").onclick = () => {
+    showScreen("memories-screen");
+};
 
-        }
-    );
+
+/* =========================================
+   STORY CHAPTERS
+========================================= */
+
+document.querySelectorAll(".chapter").forEach(chapter => {
+
+    chapter.onclick = () => {
+
+        chapter.classList.toggle("expanded");
+
+    };
+
+});
 
 
 /* =========================================
    MEMORIES
 ========================================= */
 
-document
-    .getElementById("memoriesBtn")
-    .addEventListener(
-        "click",
-        function () {
-
-            showScreen("memories-screen");
-
-        }
-    );
-
-
-/* =========================================
-   SLIDESHOW
-========================================= */
-
-const slideImage =
-    document.getElementById("slideImage");
-
-const slideCaption =
-    document.getElementById("slideCaption");
-
-const dots =
-    document.querySelectorAll(".dot");
-
-
-const slideData = [
-
-    {
-        image: "images/photo1.jpg",
-        caption: "A beautiful moment ❤️"
-    },
-
-    {
-        image: "images/photo2.jpg",
-        caption: "One to remember 💕"
-    },
-
-    {
-        image: "images/photo3.jpg",
-        caption: "Just us ❤️"
-    },
-
-    {
-        image: "images/photo4.jpg",
-        caption: "A moment I'll treasure 💗"
-    }
-
-];
-
-
-let currentSlide = 0;
-
-
-function updateSlide() {
-
-    slideImage.src =
-        slideData[currentSlide].image;
-
-    slideCaption.innerText =
-        slideData[currentSlide].caption;
-
-
-    dots.forEach(
-        (dot, index) => {
-
-            dot.classList.toggle(
-                "active",
-                index === currentSlide
-            );
-
-        }
-    );
-
-}
-
-
-document
-    .getElementById("nextPhoto")
-    .addEventListener(
-        "click",
-        function () {
-
-            currentSlide++;
-
-            if (
-                currentSlide >=
-                slideData.length
-            ) {
-                currentSlide = 0;
-            }
-
-            updateSlide();
-
-        }
-    );
-
-
-document
-    .getElementById("prevPhoto")
-    .addEventListener(
-        "click",
-        function () {
-
-            currentSlide--;
-
-            if (currentSlide < 0) {
-                currentSlide =
-                    slideData.length - 1;
-            }
-
-            updateSlide();
-
-        }
-    );
-
-
-setInterval(
-    function () {
-
-        if (
-            document
-                .getElementById("memories-screen")
-                .classList.contains("active")
-        ) {
-
-            currentSlide++;
-
-            if (
-                currentSlide >=
-                slideData.length
-            ) {
-
-                currentSlide = 0;
-
-            }
-
-            updateSlide();
-
-        }
-
-    },
-    4000
-);
-
-
-/* =========================================
-   PHOTO VIEWER
-========================================= */
-
-const photoViewer =
-    document.getElementById(
-        "photoViewer"
-    );
-
-const viewerImage =
-    document.getElementById(
-        "viewerImage"
-    );
-
-const viewerCaption =
-    document.getElementById(
-        "viewerCaption"
-    );
-
-
-document
-    .querySelectorAll(".photo-box img")
-    .forEach(
-        photo => {
-
-            photo.addEventListener(
-                "click",
-                function () {
-
-                    viewerImage.src =
-                        photo.src;
-
-                    viewerCaption.innerText =
-                        photo
-                            .closest(".photo-card")
-                            .querySelector(
-                                ".photo-caption"
-                            )
-                            .innerText;
-
-                    photoViewer.classList.add(
-                        "active"
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-document
-    .getElementById("closeViewer")
-    .addEventListener(
-        "click",
-        function () {
-
-            photoViewer.classList.remove(
-                "active"
-            );
-
-        }
-    );
-
-
-photoViewer.addEventListener(
-    "click",
-    function (event) {
-
-        if (
-            event.target ===
-            photoViewer
-        ) {
-
-            photoViewer.classList.remove(
-                "active"
-            );
-
-        }
-
-    }
-);
+document.getElementById("loveBtn").onclick = () => {
+    showScreen("love-screen");
+};
 
 
 /* =========================================
    LOVE CARDS
 ========================================= */
 
-document
-    .querySelectorAll(".love-box")
-    .forEach(
-        box => {
+document.querySelectorAll(".love-box").forEach(box => {
 
-            box.addEventListener(
-                "click",
-                function () {
+    box.onclick = () => {
 
-                    box.classList.toggle(
-                        "flipped"
-                    );
+        box.classList.toggle("flipped");
 
-                }
-            );
+    };
 
-        }
-    );
-
-
-document
-    .getElementById("loveBtn")
-    .addEventListener(
-        "click",
-        function () {
-
-            showScreen("love-screen");
-
-        }
-    );
+});
 
 
 /* =========================================
    RAIN
 ========================================= */
 
-document
-    .getElementById("rainBtn")
-    .addEventListener(
-        "click",
-        function () {
-
-            showScreen("rain-screen");
-
-        }
-    );
+document.getElementById("rainBtn").onclick = () => {
+    showScreen("rain-screen");
+};
 
 
 /* =========================================
    LETTER
 ========================================= */
 
-document
-    .getElementById("letterBtn")
-    .addEventListener(
-        "click",
-        function () {
-
-            showScreen("letter-screen");
-
-        }
-    );
+document.getElementById("letterBtn").onclick = () => {
+    showScreen("letter-screen");
+};
 
 
 /* =========================================
-   SECRET MESSAGE
+   HIDDEN MESSAGES
 ========================================= */
 
-document
-    .getElementById("secretBtn")
-    .addEventListener(
-        "click",
-        function () {
+function toggleMessage(buttonId, messageId) {
 
-            const message =
-                document.getElementById(
-                    "secretMessage"
-                );
+    document
+        .getElementById(buttonId)
+        .onclick = () => {
 
-            message.classList.toggle(
-                "show"
-            );
+            document
+                .getElementById(messageId)
+                .classList.toggle("show");
 
-        }
-    );
+        };
 
+}
 
-/* =========================================
-   MISS ME
-========================================= */
+toggleMessage(
+    "secretBtn",
+    "secretMessage"
+);
 
-document
-    .getElementById("missBtn")
-    .addEventListener(
-        "click",
-        function () {
+toggleMessage(
+    "missBtn",
+    "missMessage"
+);
 
-            const message =
-                document.getElementById(
-                    "missMessage"
-                );
-
-            message.classList.toggle(
-                "show"
-            );
-
-        }
-    );
+toggleMessage(
+    "fightBtn",
+    "fightMessage"
+);
 
 
 /* =========================================
    QUESTION
 ========================================= */
 
-document
-    .getElementById("questionBtn")
-    .addEventListener(
-        "click",
-        function () {
-
-            showScreen("question-screen");
-
-        }
-    );
+document.getElementById("questionBtn").onclick = () => {
+    showScreen("question-screen");
+};
 
 
-const questionMessage =
+function answerQuestion(text) {
+
     document.getElementById(
         "questionMessage"
-    );
-
-
-function answerYes(message) {
-
-    questionMessage.innerText =
-        message;
+    ).innerText = text;
 
     createFireworks();
 
@@ -794,77 +502,90 @@ function answerYes(message) {
 
         showScreen("gift-screen");
 
-    }, 1500);
-
+    }, 1400);
 }
 
 
-document
-    .getElementById("yesBtn")
-    .addEventListener(
-        "click",
-        function () {
+document.getElementById("yesBtn").onclick = () => {
 
-            answerYes(
-                "I knew it. ❤️🥺"
-            );
-
-        }
+    answerQuestion(
+        "I knew it. ❤️🥺"
     );
 
+};
 
-document
-    .getElementById("yesMoreBtn")
-    .addEventListener(
-        "click",
-        function () {
 
-            answerYes(
-                "That's the answer I was hoping for. 🥺❤️"
-            );
+document.getElementById("yesMoreBtn").onclick = () => {
 
-        }
+    answerQuestion(
+        "That's exactly what I wanted to hear. ❤️"
     );
+
+};
 
 
 /* =========================================
-   GIFT
+   GIFT BOXES
 ========================================= */
 
-const giftBox =
-    document.getElementById("giftBox");
+const gifts =
+    document.querySelectorAll(".gift-mini");
 
-const giftText =
-    document.getElementById("giftText");
+const giftReveal =
+    document.getElementById("giftReveal");
+
+const finalGiftBtn =
+    document.getElementById("finalGiftBtn");
+
+let openedGifts = 0;
 
 
-giftBox.addEventListener(
-    "click",
-    function () {
+gifts.forEach(gift => {
 
-        if (
-            giftBox.classList.contains("open")
-        ) {
+    gift.onclick = () => {
+
+        if (gift.classList.contains("opened")) {
             return;
         }
 
-        giftBox.classList.add("open");
+        gift.classList.add("opened");
 
-        giftText.innerText =
-            "A whole lot of love is waiting inside... ❤️";
+        openedGifts++;
+
+        giftReveal.innerText =
+            gift.dataset.message;
 
         createFireworks();
 
-        setTimeout(() => {
+        if (openedGifts >= 3) {
 
-            showScreen("final-screen");
+            finalGiftBtn.classList.remove(
+                "hidden"
+            );
 
-            createBigCelebration();
+            giftReveal.innerText =
+                "You opened all three... ❤️";
 
-        }, 1800);
+        }
 
-    }
-);
+    };
+
+});
+
+
+finalGiftBtn.onclick = () => {
+
+    createFireworks();
+
+    setTimeout(() => {
+
+        showScreen("final-screen");
+
+        bigCelebration();
+
+    }, 800);
+
+};
 
 
 /* =========================================
@@ -873,67 +594,53 @@ giftBox.addEventListener(
 
 function createFireworks() {
 
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 35; i++) {
 
-        const h =
+        const heart =
             document.createElement("div");
 
-        h.className =
+        heart.className =
             "firework-heart";
 
-        h.innerText =
+        heart.innerText =
             Math.random() > .5
                 ? "❤️"
                 : "💗";
 
-        h.style.left =
+        heart.style.left =
             "50%";
 
-        h.style.top =
+        heart.style.top =
             "50%";
 
-        const x =
-            (Math.random() - .5) *
-            500;
-
-        const y =
-            (Math.random() - .5) *
-            500;
-
-        h.style.setProperty(
+        heart.style.setProperty(
             "--x",
-            x + "px"
+            `${(Math.random() - .5) * 600}px`
         );
 
-        h.style.setProperty(
+        heart.style.setProperty(
             "--y",
-            y + "px"
+            `${(Math.random() - .5) * 600}px`
         );
 
-        document.body.appendChild(h);
+        document.body.appendChild(heart);
 
         setTimeout(() => {
-
-            h.remove();
-
+            heart.remove();
         }, 1600);
 
     }
+
 }
 
 
-/* =========================================
-   BIG FINAL CELEBRATION
-========================================= */
+function bigCelebration() {
 
-function createBigCelebration() {
+    for (let i = 0; i < 6; i++) {
 
-    for (let round = 0; round < 4; round++) {
-
-        setTimeout(
-            createFireworks,
-            round * 500
-        );
+        setTimeout(() => {
+            createFireworks();
+        }, i * 450);
 
     }
 
@@ -944,24 +651,19 @@ function createBigCelebration() {
    CURSOR HEART TRAIL
 ========================================= */
 
-let lastCursorHeart = 0;
-
+let lastHeart = 0;
 
 document.addEventListener(
     "mousemove",
-    function (event) {
+    event => {
 
-        const now =
-            Date.now();
+        const now = Date.now();
 
-        if (
-            now - lastCursorHeart < 100
-        ) {
+        if (now - lastHeart < 120) {
             return;
         }
 
-        lastCursorHeart =
-            now;
+        lastHeart = now;
 
         const heart =
             document.createElement("span");
@@ -981,15 +683,11 @@ document.addEventListener(
             event.clientY + "px";
 
         document
-            .getElementById(
-                "cursorHearts"
-            )
+            .getElementById("cursorHearts")
             .appendChild(heart);
 
         setTimeout(() => {
-
             heart.remove();
-
         }, 800);
 
     }
@@ -1001,71 +699,57 @@ document.addEventListener(
 ========================================= */
 
 const music =
-    document.getElementById(
-        "bgMusic"
-    );
+    document.getElementById("bgMusic");
 
 const musicBtn =
-    document.getElementById(
-        "musicBtn"
-    );
+    document.getElementById("musicBtn");
 
 let musicPlaying = false;
 
 
-musicBtn.addEventListener(
-    "click",
-    function () {
+musicBtn.onclick = () => {
 
-        if (!musicPlaying) {
+    if (!musicPlaying) {
 
-            music.play()
-                .then(() => {
+        music.play()
+            .then(() => {
 
-                    musicPlaying =
-                        true;
+                musicPlaying = true;
 
-                    musicBtn.innerText =
-                        "🔊";
+                musicBtn.innerText =
+                    "🔊";
 
-                })
-                .catch(() => {
+            })
+            .catch(() => {
 
-                    musicBtn.innerText =
-                        "🎵";
+                musicBtn.innerText =
+                    "🎵";
 
-                });
+            });
 
-        } else {
+    } else {
 
-            music.pause();
+        music.pause();
 
-            musicPlaying =
-                false;
+        musicPlaying = false;
 
-            musicBtn.innerText =
-                "🎵";
-
-        }
+        musicBtn.innerText =
+            "🎵";
 
     }
-);
+
+};
 
 
 /* =========================================
    REPLAY
 ========================================= */
 
-document
-    .getElementById("replayBtn")
-    .addEventListener(
-        "click",
-        function () {
+document.getElementById("replayBtn").onclick = () => {
 
-            location.reload();
+    location.reload();
 
-        }
-    );
+};
 
 
 /* =========================================
@@ -1074,15 +758,22 @@ document
 
 document.addEventListener(
     "keydown",
-    function (event) {
+    event => {
 
-        if (
-            event.key === "Escape"
-        ) {
+        if (event.key === "Escape") {
 
-            photoViewer.classList.remove(
-                "active"
-            );
+            document
+                .querySelectorAll(".screen")
+                .forEach(screen => {
+
+                    if (
+                        screen.id ===
+                        "final-screen"
+                    ) {
+                        return;
+                    }
+
+                });
 
         }
 
