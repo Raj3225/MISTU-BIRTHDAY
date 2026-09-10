@@ -1,48 +1,78 @@
-/* ==========================================
-   SCREEN SYSTEM
-========================================== */
+/* =========================================================
+   MISTU BIRTHDAY WEBSITE
+========================================================= */
+
+
+/* =========================================================
+   SCREEN CHANGER
+========================================================= */
 
 function showScreen(screenId) {
 
-    const screens = document.querySelectorAll(".screen");
+    const screens =
+        document.querySelectorAll(".screen");
 
     screens.forEach(function(screen) {
+
         screen.classList.remove("active");
+
     });
 
-    const selectedScreen = document.getElementById(screenId);
+
+    const selectedScreen =
+        document.getElementById(screenId);
+
 
     if (selectedScreen) {
+
         selectedScreen.classList.add("active");
+
     }
+
 
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
+
 }
 
 
-/* ==========================================
+/* =========================================================
    PASSWORD
-========================================== */
+========================================================= */
 
-const passwordInput = document.getElementById("password");
-const passwordButton = document.getElementById("passwordBtn");
-const passwordMessage = document.getElementById("passwordMessage");
+const passwordInput =
+    document.getElementById("password");
+
+const passwordButton =
+    document.getElementById("passwordBtn");
+
+const passwordMessage =
+    document.getElementById("passwordMessage");
+
 
 function checkPassword() {
 
     const enteredPassword =
         passwordInput.value.trim();
 
+
     if (enteredPassword === "29thmarch") {
 
         passwordMessage.innerText =
             "Welcome, Mistu ❤️";
 
+
+        passwordMessage.classList.add(
+            "success-message"
+        );
+
+
         passwordButton.disabled = true;
+
         passwordInput.disabled = true;
+
 
         setTimeout(function() {
 
@@ -50,34 +80,49 @@ function checkPassword() {
 
             startGame();
 
-        }, 900);
+        }, 1000);
 
-    } else {
+    }
+
+    else {
 
         passwordMessage.innerText =
             "Almost... try again 😜";
 
+
+        passwordMessage.classList.remove(
+            "success-message"
+        );
+
+
         passwordInput.value = "";
 
         passwordInput.focus();
+
     }
+
 }
+
 
 passwordButton.addEventListener(
     "click",
     checkPassword
 );
 
+
 passwordInput.addEventListener(
     "keydown",
     function(event) {
 
         if (event.key === "Enter") {
+
             checkPassword();
+
         }
 
     }
 );
+
 
 passwordInput.addEventListener(
     "input",
@@ -89,9 +134,9 @@ passwordInput.addEventListener(
 );
 
 
-/* ==========================================
+/* =========================================================
    HEART GAME
-========================================== */
+========================================================= */
 
 const gameArea =
     document.getElementById("game-area");
@@ -105,9 +150,15 @@ const scoreText =
 const gameMessage =
     document.getElementById("game-message");
 
+
 let score = 0;
+
 let gameRunning = false;
 
+
+/* =========================================================
+   START GAME
+========================================================= */
 
 function startGame() {
 
@@ -115,22 +166,35 @@ function startGame() {
 
     gameRunning = true;
 
+
     heart.style.display = "flex";
 
-    scoreText.innerText = "0 / 5";
+
+    scoreText.innerText =
+        "0 / 5";
+
 
     gameMessage.innerText =
         "Tap the glowing heart ❤️";
 
+
     moveHeart();
+
 }
 
+
+/* =========================================================
+   MOVE HEART
+========================================================= */
 
 function moveHeart() {
 
     if (!gameRunning) {
+
         return;
+
     }
+
 
     const areaWidth =
         gameArea.clientWidth;
@@ -138,11 +202,13 @@ function moveHeart() {
     const areaHeight =
         gameArea.clientHeight;
 
+
     const heartWidth =
         heart.offsetWidth;
 
     const heartHeight =
         heart.offsetHeight;
+
 
     const maxX =
         Math.max(
@@ -150,11 +216,13 @@ function moveHeart() {
             areaWidth - heartWidth
         );
 
+
     const maxY =
         Math.max(
             0,
             areaHeight - heartHeight
         );
+
 
     const randomX =
         Math.floor(
@@ -162,19 +230,27 @@ function moveHeart() {
             (maxX + 1)
         );
 
+
     const randomY =
         Math.floor(
             Math.random() *
             (maxY + 1)
         );
 
+
     heart.style.left =
         randomX + "px";
 
+
     heart.style.top =
         randomY + "px";
+
 }
 
+
+/* =========================================================
+   HEART CLICK
+========================================================= */
 
 heart.addEventListener(
     "click",
@@ -182,11 +258,16 @@ heart.addEventListener(
 
         event.preventDefault();
 
+
         if (!gameRunning) {
+
             return;
+
         }
 
+
         score++;
+
 
         scoreText.innerText =
             score + " / 5";
@@ -199,12 +280,14 @@ heart.addEventListener(
 
         }
 
+
         if (score === 2) {
 
             gameMessage.innerText =
                 "You're good at this 😍";
 
         }
+
 
         if (score === 3) {
 
@@ -213,10 +296,11 @@ heart.addEventListener(
 
         }
 
+
         if (score === 4) {
 
             gameMessage.innerText =
-                "One more, Mistu... 🥰";
+                "One more! 🥰";
 
         }
 
@@ -225,27 +309,28 @@ heart.addEventListener(
 
             gameRunning = false;
 
+
             heart.style.display =
                 "none";
+
 
             gameMessage.innerText =
                 "You caught all my hearts! ❤️";
 
-            createHeartExplosion();
 
-            setTimeout(
-                function() {
+            setTimeout(function() {
 
-                    showScreen(
-                        "birthday-screen"
-                    );
+                showScreen(
+                    "birthday-screen"
+                );
 
-                },
-                1500
-            );
+            }, 1200);
+
 
             return;
+
         }
+
 
         moveHeart();
 
@@ -253,51 +338,9 @@ heart.addEventListener(
 );
 
 
-/* ==========================================
-   HEART EXPLOSION
-========================================== */
-
-function createHeartExplosion() {
-
-    for (let i = 0; i < 25; i++) {
-
-        const heartParticle =
-            document.createElement("div");
-
-        heartParticle.className =
-            "heart-particle";
-
-        heartParticle.innerText =
-            Math.random() > 0.5
-                ? "❤️"
-                : "💕";
-
-        heartParticle.style.left =
-            Math.random() * 100 + "%";
-
-        heartParticle.style.top =
-            Math.random() * 100 + "%";
-
-        heartParticle.style.animationDelay =
-            Math.random() * 0.5 + "s";
-
-        document.body.appendChild(
-            heartParticle
-        );
-
-        setTimeout(
-            function() {
-                heartParticle.remove();
-            },
-            2200
-        );
-    }
-}
-
-
-/* ==========================================
-   PAGE NAVIGATION
-========================================== */
+/* =========================================================
+   MEMORIES BUTTON
+========================================================= */
 
 document
     .getElementById("memoriesBtn")
@@ -313,47 +356,9 @@ document
     );
 
 
-document
-    .getElementById("storyBtn")
-    .addEventListener(
-        "click",
-        function() {
-
-            showScreen(
-                "story-screen"
-            );
-
-        }
-    );
-
-
-document
-    .getElementById("reasonsBtn")
-    .addEventListener(
-        "click",
-        function() {
-
-            showScreen(
-                "reasons-screen"
-            );
-
-        }
-    );
-
-
-document
-    .getElementById("promiseBtn")
-    .addEventListener(
-        "click",
-        function() {
-
-            showScreen(
-                "promise-screen"
-            );
-
-        }
-    );
-
+/* =========================================================
+   LETTER BUTTON
+========================================================= */
 
 document
     .getElementById("letterBtn")
@@ -369,192 +374,177 @@ document
     );
 
 
+/* =========================================================
+   FINAL BUTTON
+========================================================= */
+
 document
-    .getElementById("surpriseBtn")
+    .getElementById("finalBtn")
     .addEventListener(
         "click",
         function() {
 
             showScreen(
-                "surprise-screen"
+                "final-screen"
+            );
+
+
+            launchConfetti();
+
+        }
+    );
+
+
+/* =========================================================
+   RESTART BUTTON
+========================================================= */
+
+document
+    .getElementById("restartBtn")
+    .addEventListener(
+        "click",
+        function() {
+
+            passwordInput.disabled = false;
+
+            passwordButton.disabled = false;
+
+            passwordInput.value = "";
+
+            passwordMessage.innerText = "";
+
+            score = 0;
+
+            gameRunning = false;
+
+            heart.style.display = "flex";
+
+            showScreen(
+                "password-screen"
             );
 
         }
     );
 
 
-/* ==========================================
-   REASONS I LOVE YOU
-========================================== */
+/* =========================================================
+   CONFETTI
+========================================================= */
 
-const reasons = [
+function launchConfetti() {
 
-    "Your eyes. ❤️",
-
-    "The way you care about me. 💕",
-
-    "The way you console me whenever I'm not okay. 🥺",
-
-    "Your smile. It can change my entire mood. 😊",
-
-    "The way you behave and the person you are. ❤️",
-
-    "Your patience with me. 🌷",
-
-    "The little things you do that you probably don't even notice. 💗",
-
-    "Simply because you're Mistu. And there is only one you. ❤️"
-
-];
-
-let reasonIndex = 0;
-
-const reasonText =
-    document.getElementById("reasonText");
-
-const reasonNumber =
-    document.getElementById("reasonNumber");
-
-const reasonDots =
-    document.getElementById("reasonDots");
-
-const reasonHeart =
-    document.getElementById("reasonHeart");
-
-const reasonButton =
-    document.getElementById("reasonBtn");
+    const container =
+        document.getElementById(
+            "confetti-container"
+        );
 
 
-function updateReason() {
+    container.innerHTML = "";
 
-    reasonText.classList.remove(
-        "reason-change"
-    );
 
-    reasonHeart.classList.remove(
-        "heart-pop"
-    );
+    const pieces = 100;
 
-    void reasonText.offsetWidth;
-
-    reasonText.innerText =
-        reasons[reasonIndex];
-
-    reasonNumber.innerText =
-        (reasonIndex + 1) +
-        " / " +
-        reasons.length;
-
-    let dots = "";
 
     for (
         let i = 0;
-        i < reasons.length;
+        i < pieces;
         i++
     ) {
 
-        dots +=
-            i === reasonIndex
-                ? "● "
-                : "○ ";
+        const confetti =
+            document.createElement(
+                "div"
+            );
+
+
+        confetti.classList.add(
+            "confetti"
+        );
+
+
+        confetti.style.left =
+            Math.random() * 100 + "%";
+
+
+        confetti.style.animationDelay =
+            Math.random() * 1.5 + "s";
+
+
+        confetti.style.animationDuration =
+            2.5 +
+            Math.random() * 2 +
+            "s";
+
+
+        const size =
+            6 +
+            Math.random() * 8;
+
+
+        confetti.style.width =
+            size + "px";
+
+
+        confetti.style.height =
+            size * 1.5 + "px";
+
+
+        container.appendChild(
+            confetti
+        );
 
     }
 
-    reasonDots.innerText =
-        dots;
 
-    reasonText.classList.add(
-        "reason-change"
-    );
+    setTimeout(function() {
 
-    reasonHeart.classList.add(
-        "heart-pop"
-    );
+        container.innerHTML = "";
+
+    }, 6000);
+
 }
 
 
-reasonButton.addEventListener(
-    "click",
-    function() {
+/* =========================================================
+   CLICKING LOVE REASON CARDS
+========================================================= */
 
-        reasonIndex++;
-
-        if (
-            reasonIndex >=
-            reasons.length
-        ) {
-
-            reasonIndex = 0;
-
-        }
-
-        updateReason();
-
-    }
-);
-
-
-/* ==========================================
-   GIFT BOX
-========================================== */
-
-const giftBox =
-    document.getElementById("giftBox");
-
-const openGiftBtn =
-    document.getElementById(
-        "openGiftBtn"
-    );
-
-const giftMessage =
-    document.getElementById(
-        "giftMessage"
+const reasonCards =
+    document.querySelectorAll(
+        ".reason-card"
     );
 
 
-openGiftBtn.addEventListener(
-    "click",
-    function() {
+reasonCards.forEach(
+    function(card) {
 
-        giftBox.classList.add(
-            "gift-open"
-        );
-
-        giftMessage.innerText =
-            "You are one of the most special people in my life. ❤️";
-
-        openGiftBtn.innerText =
-            "Open My Heart ❤️";
-
-        openGiftBtn.disabled = true;
-
-        createHeartExplosion();
-
-        setTimeout(
+        card.addEventListener(
+            "click",
             function() {
 
-                showScreen(
-                    "final-screen"
+                card.classList.toggle(
+                    "reason-selected"
                 );
 
-            },
-            2800
+            }
         );
 
     }
 );
 
 
-/* ==========================================
-   RESIZE GAME
-========================================== */
+/* =========================================================
+   RESIZE SAFETY FOR HEART GAME
+========================================================= */
 
 window.addEventListener(
     "resize",
     function() {
 
         if (gameRunning) {
+
             moveHeart();
+
         }
 
     }
