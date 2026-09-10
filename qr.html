@@ -5,9 +5,8 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Mistu Secret QR ❤️</title>
 
@@ -18,41 +17,40 @@
         }
 
         body {
-
             margin: 0;
 
             min-height: 100vh;
 
             display: flex;
 
-            align-items: center;
-
             justify-content: center;
 
+            align-items: center;
+
+            padding: 20px;
+
             font-family: Arial, sans-serif;
+
+            text-align: center;
+
+            color: white;
 
             background:
                 linear-gradient(
                     135deg,
                     #ff758c,
                     #ff7eb3,
-                    #c471ed
+                    #c471ed,
+                    #f64f59
                 );
-
-            color: white;
-
-            text-align: center;
-
-            padding: 20px;
         }
 
         .card {
-
             width: 100%;
 
             max-width: 500px;
 
-            padding: 35px;
+            padding: 35px 25px;
 
             border-radius: 30px;
 
@@ -63,26 +61,33 @@
 
             box-shadow:
                 0 20px 50px
-                rgba(0,0,0,0.25);
+                rgba(0,0,0,0.3);
+        }
+
+        .heart {
+            font-size: 60px;
+
+            margin-bottom: 10px;
         }
 
         h1 {
-
             font-size: 32px;
 
             margin-bottom: 10px;
         }
 
         p {
+            font-size: 17px;
 
             line-height: 1.6;
         }
 
-        #qrcode {
+        .qr-container {
+            width: 320px;
 
-            width: 290px;
+            height: 320px;
 
-            height: 290px;
+            max-width: 100%;
 
             margin: 25px auto;
 
@@ -94,14 +99,25 @@
 
             display: flex;
 
-            align-items: center;
-
             justify-content: center;
+
+            align-items: center;
         }
 
-        .heart {
+        .qr-container img {
+            width: 100%;
 
-            font-size: 50px;
+            height: 100%;
+
+            object-fit: contain;
+
+            display: block;
+        }
+
+        .instruction {
+            font-size: 15px;
+
+            opacity: 0.9;
         }
 
     </style>
@@ -123,55 +139,31 @@
 
         <p>
             Scan this QR code using the
-            birthday website camera.
+            camera scanner on the birthday website 📷
         </p>
 
-        <div id="qrcode"></div>
+
+        <!-- QR CODE -->
+
+        <div class="qr-container">
+
+            <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fraj3225.github.io%2FMISTU-BIRTHDAY%2F"
+                alt="Mistu Birthday QR Code">
+
+        </div>
+
 
         <p>
-            Something special is waiting for you... 💕
+            Scan me to unlock something special 💕
+        </p>
+
+        <p class="instruction">
+            📱 Open the birthday website on another phone
+            and scan this QR.
         </p>
 
     </div>
-
-
-    <!-- QR CODE LIBRARY -->
-
-    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js">
-    </script>
-
-
-    <script>
-
-        /*
-            YOUR GITHUB PAGES WEBSITE
-        */
-
-        const websiteURL =
-            "https://raj3225.github.io/MISTU-BIRTHDAY/";
-
-
-        new QRCode(
-            document.getElementById("qrcode"),
-            {
-
-                text: websiteURL,
-
-                width: 260,
-
-                height: 260,
-
-                colorDark: "#000000",
-
-                colorLight: "#ffffff",
-
-                correctLevel:
-                    QRCode.CorrectLevel.H
-
-            }
-        );
-
-    </script>
 
 </body>
 
