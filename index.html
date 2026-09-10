@@ -3,37 +3,21 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <title>For Mistu ❤️</title>
 
-    <title>Happy Birthday Mistu ❤️</title>
+    <link rel="stylesheet" href="style.css">
 
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
-
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
-          rel="stylesheet">
-
-    <link rel="stylesheet"
-          href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <!-- =====================================================
-         FLOATING BACKGROUND HEARTS
-    ====================================================== -->
+    <!-- BACKGROUND -->
+    <div class="stars"></div>
 
-    <div class="background-hearts">
-        <span>♡</span>
-        <span>♥</span>
-        <span>♡</span>
-        <span>♥</span>
+    <div class="floating-hearts">
         <span>♡</span>
         <span>♥</span>
         <span>♡</span>
@@ -44,22 +28,66 @@
         <span>♥</span>
     </div>
 
+    <!-- CURSOR HEARTS -->
+    <div id="cursorHearts"></div>
 
-    <!-- =====================================================
-         1. PASSWORD SCREEN
-    ====================================================== -->
+    <!-- MUSIC -->
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
 
-    <section id="password-screen"
-             class="screen active">
+    <button id="musicBtn" class="music-btn">🎵</button>
 
-        <div class="card password-card">
 
-            <div class="emoji">
-                🔐
+    <!-- =================================
+         CINEMATIC OPENING
+    ================================== -->
+
+    <section id="opening-screen" class="screen active">
+
+        <div class="opening-content">
+
+            <div class="opening-stars">
+                ✦　✧　✦
             </div>
 
+            <p class="opening-small">
+                A LITTLE WORLD MADE FOR
+            </p>
+
+            <h1 class="opening-name">
+                Mistu
+            </h1>
+
+            <div class="opening-heart">
+                ❤️
+            </div>
+
+            <p class="opening-text">
+                Something special was made for you...
+            </p>
+
+            <button id="startBtn">
+                Enter My World ❤️
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================
+         PASSWORD
+    ================================== -->
+
+    <section id="password-screen" class="screen">
+
+        <div class="card">
+
+            <div class="lock-heart">🔐</div>
+
             <div class="small-title">
-                A LITTLE SURPRISE
+                A LITTLE SECRET
             </div>
 
             <h1>
@@ -82,13 +110,10 @@
             >
 
             <button id="passwordBtn">
-                Open My Surprise
-                <span>♥</span>
+                Open My Surprise ❤️
             </button>
 
-            <p id="passwordMessage"
-               class="message">
-            </p>
+            <p id="passwordMessage" class="message"></p>
 
             <div class="tiny-hearts">
                 ♡　♡　♡
@@ -99,12 +124,55 @@
     </section>
 
 
-    <!-- =====================================================
-         2. HEART GAME
-    ====================================================== -->
+    <!-- =================================
+         ENVELOPE
+    ================================== -->
 
-    <section id="game-screen"
-             class="screen">
+    <section id="envelope-screen" class="screen">
+
+        <div class="envelope-wrapper">
+
+            <div id="envelope" class="envelope">
+
+                <div class="envelope-back"></div>
+
+                <div class="envelope-flap"></div>
+
+                <div class="envelope-front"></div>
+
+                <div class="letter-inside">
+
+                    <div class="letter-heart">
+                        ❤️
+                    </div>
+
+                    <p>
+                        For the girl who means
+                        more than words can explain...
+                    </p>
+
+                    <span>
+                        — Raj
+                    </span>
+
+                </div>
+
+            </div>
+
+            <p class="envelope-hint">
+                Tap the envelope 💌
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================
+         HEART GAME
+    ================================== -->
+
+    <section id="game-screen" class="screen">
 
         <div class="game-card">
 
@@ -122,12 +190,9 @@
 
             <div id="game-area">
 
-                <button id="heart"
-                        aria-label="Catch heart">
-
+                <div id="heart">
                     ❤️
-
-                </button>
+                </div>
 
             </div>
 
@@ -143,11 +208,8 @@
 
             </div>
 
-            <p id="game-message"
-               class="game-message">
-
-                Tap the glowing heart ❤️
-
+            <p id="game-message" class="game-message">
+                Catch the glowing heart ❤️
             </p>
 
         </div>
@@ -155,17 +217,67 @@
     </section>
 
 
-    <!-- =====================================================
-         3. BIRTHDAY SCREEN
-    ====================================================== -->
+    <!-- =================================
+         CAKE
+    ================================== -->
 
-    <section id="birthday-screen"
-             class="screen">
+    <section id="cake-screen" class="screen">
+
+        <div class="card cake-card">
+
+            <div class="small-title">
+                MAKE A WISH
+            </div>
+
+            <h1>
+                A Birthday Cake 🎂
+            </h1>
+
+            <div class="cake">
+
+                <div class="flame" id="flame">
+                    🔥
+                </div>
+
+                <div class="candle"></div>
+
+                <div class="cake-top"></div>
+
+                <div class="cake-body">
+
+                    <div class="cake-cream">
+                        ♥ ♥ ♥
+                    </div>
+
+                </div>
+
+                <div class="cake-bottom"></div>
+
+            </div>
+
+            <p id="cakeMessage">
+                Make a wish and blow out the candle... ✨
+            </p>
+
+            <button id="blowBtn">
+                Blow the Candle 🕯️
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================
+         BIRTHDAY
+    ================================== -->
+
+    <section id="birthday-screen" class="screen">
 
         <div class="card birthday-card">
 
-            <div class="sparkle">
-                ✦　✧　✦
+            <div class="sparkles">
+                ✦ ✧ ✦
             </div>
 
             <div class="big-heart">
@@ -177,28 +289,18 @@
             </div>
 
             <h1>
-                Happy Birthday
-                <br>
+                Happy Birthday<br>
                 Mistu! 🎂
             </h1>
 
-            <p>
-                You found your surprise. 🥰
-            </p>
-
-            <p>
-                I hope today brings you countless reasons
-                to smile, beautiful memories, and all the
-                happiness you deserve.
-            </p>
+            <div id="typing-text" class="typing-text"></div>
 
             <div class="divider">
                 ♥　♥　♥
             </div>
 
-            <button id="memoriesBtn">
-                Our Memories
-                <span>→</span>
+            <button id="storyBtn">
+                Our Story 📜
             </button>
 
         </div>
@@ -206,12 +308,181 @@
     </section>
 
 
-    <!-- =====================================================
-         4. MEMORIES SCREEN
-    ====================================================== -->
+    <!-- =================================
+         OUR STORY
+    ================================== -->
 
-    <section id="memories-screen"
-             class="screen">
+    <section id="story-screen" class="screen">
+
+        <div class="content">
+
+            <div class="small-title">
+                OUR LITTLE STORY
+            </div>
+
+            <h1>
+                Moments That Matter ❤️
+            </h1>
+
+            <p class="subtitle">
+                Some moments become special simply because
+                they happened with the right person.
+            </p>
+
+
+            <div class="timeline">
+
+                <div class="timeline-item">
+
+                    <div class="timeline-dot">
+                        ❤️
+                    </div>
+
+                    <div class="timeline-card">
+
+                        <span>
+                            CHAPTER 01
+                        </span>
+
+                        <h2>
+                            The Beginning
+                        </h2>
+
+                        <p>
+                            Somewhere along the way,
+                            you became someone very special
+                            to me.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="timeline-item">
+
+                    <div class="timeline-dot">
+                        💕
+                    </div>
+
+                    <div class="timeline-card">
+
+                        <span>
+                            CHAPTER 02
+                        </span>
+
+                        <h2>
+                            Getting Closer
+                        </h2>
+
+                        <p>
+                            More conversations,
+                            more smiles,
+                            more little moments
+                            that slowly became ours.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="timeline-item">
+
+                    <div class="timeline-dot">
+                        🌧️
+                    </div>
+
+                    <div class="timeline-card">
+
+                        <span>
+                            CHAPTER 03
+                        </span>
+
+                        <h2>
+                            Rabindra Sarobar
+                        </h2>
+
+                        <p>
+                            Sitting together in the rain,
+                            simply enjoying each other's company.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="timeline-item">
+
+                    <div class="timeline-dot">
+                        🎂
+                    </div>
+
+                    <div class="timeline-card">
+
+                        <span>
+                            CHAPTER 04
+                        </span>
+
+                        <h2>
+                            Today
+                        </h2>
+
+                        <p>
+                            Today I'm celebrating you
+                            and everything that makes you
+                            so special.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="timeline-item">
+
+                    <div class="timeline-dot">
+                        ♾️
+                    </div>
+
+                    <div class="timeline-card">
+
+                        <span>
+                            CHAPTER 05
+                        </span>
+
+                        <h2>
+                            What's Next?
+                        </h2>
+
+                        <p>
+                            Hopefully many more memories,
+                            adventures, laughs and rainy days
+                            waiting for us.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <button id="memoriesBtn">
+                Our Memories 📸
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================
+         MEMORIES
+    ================================== -->
+
+    <section id="memories-screen" class="screen">
 
         <div class="content">
 
@@ -224,21 +495,57 @@
             </h1>
 
             <p class="subtitle">
-                Some moments that I will always keep
-                close to my heart.
+                Click a photo to make it bigger.
             </p>
 
 
-            <!-- PHOTO GALLERY -->
+            <div class="slideshow">
+
+                <button id="prevPhoto" class="slide-btn">
+                    ❮
+                </button>
+
+                <div class="slide-image-box">
+
+                    <img
+                        id="slideImage"
+                        src="images/photo1.jpg"
+                        alt="Our memory"
+                    >
+
+                    <div id="slideCaption">
+                        A beautiful moment ❤️
+                    </div>
+
+                </div>
+
+                <button id="nextPhoto" class="slide-btn">
+                    ❯
+                </button>
+
+            </div>
+
+
+            <div class="slide-dots">
+
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+
+            </div>
+
 
             <div class="gallery">
 
-                <div class="photo-card photo-one">
+                <div class="photo-card">
 
                     <div class="photo-box">
 
-                        <img src="images/photo1.jpg"
-                             alt="Our memory 1">
+                        <img
+                            src="images/photo1.jpg"
+                            alt="Our memory 1"
+                        >
 
                     </div>
 
@@ -249,12 +556,14 @@
                 </div>
 
 
-                <div class="photo-card photo-two">
+                <div class="photo-card">
 
                     <div class="photo-box">
 
-                        <img src="images/photo2.jpg"
-                             alt="Our memory 2">
+                        <img
+                            src="images/photo2.jpg"
+                            alt="Our memory 2"
+                        >
 
                     </div>
 
@@ -265,12 +574,14 @@
                 </div>
 
 
-                <div class="photo-card photo-three">
+                <div class="photo-card">
 
                     <div class="photo-box">
 
-                        <img src="images/photo3.jpg"
-                             alt="Our memory 3">
+                        <img
+                            src="images/photo3.jpg"
+                            alt="Our memory 3"
+                        >
 
                     </div>
 
@@ -281,12 +592,14 @@
                 </div>
 
 
-                <div class="photo-card photo-four">
+                <div class="photo-card">
 
                     <div class="photo-box">
 
-                        <img src="images/photo4.jpg"
-                             alt="Our memory 4">
+                        <img
+                            src="images/photo4.jpg"
+                            alt="Our memory 4"
+                        >
 
                     </div>
 
@@ -299,148 +612,8 @@
             </div>
 
 
-            <!-- =================================================
-                 REASONS I LOVE YOU
-            ================================================== -->
-
-            <div class="love-reasons">
-
-                <div class="small-title">
-                    A FEW REASONS
-                </div>
-
-                <h2>
-                    Why I Love You ❤️
-                </h2>
-
-                <div class="reason-grid">
-
-
-                    <div class="reason-card">
-
-                        <div class="reason-icon">
-                            👀
-                        </div>
-
-                        <h3>
-                            Your Eyes
-                        </h3>
-
-                        <p>
-                            I don't know how you do it,
-                            but your eyes always catch
-                            my attention.
-                        </p>
-
-                    </div>
-
-
-                    <div class="reason-card">
-
-                        <div class="reason-icon">
-                            🤍
-                        </div>
-
-                        <h3>
-                            Your Care
-                        </h3>
-
-                        <p>
-                            The way you care about me
-                            means more than you probably
-                            realize.
-                        </p>
-
-                    </div>
-
-
-                    <div class="reason-card">
-
-                        <div class="reason-icon">
-                            🥺
-                        </div>
-
-                        <h3>
-                            You Console Me
-                        </h3>
-
-                        <p>
-                            Whenever I'm not okay,
-                            you somehow make things
-                            feel a little better.
-                        </p>
-
-                    </div>
-
-
-                    <div class="reason-card">
-
-                        <div class="reason-icon">
-                            🌧️
-                        </div>
-
-                        <h3>
-                            Our Rainy Day
-                        </h3>
-
-                        <p>
-                            Rabindra Sarobar, the rain,
-                            and simply being together.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- =================================================
-                 RAIN MEMORY
-            ================================================== -->
-
-            <div class="rain-memory">
-
-                <div class="rain-drops">
-                    💧　💧　💧　💧　💧
-                </div>
-
-                <div class="rain-icon">
-                    🌧️
-                </div>
-
-                <div class="small-title">
-                    ONE MEMORY I LOVE
-                </div>
-
-                <h2>
-                    That Rainy Day ❤️
-                </h2>
-
-                <p>
-                    Rabindra Sarobar.
-                    The rain falling around us.
-                    Sitting together.
-                    No big plans.
-                    No complicated things.
-                    Just you and me.
-                </p>
-
-                <p>
-                    Somehow, that simple moment became
-                    one of the memories I want to keep forever.
-                </p>
-
-                <div class="rain-signature">
-                    — Raj ❤️
-                </div>
-
-            </div>
-
-
-            <button id="letterBtn">
-                Read My Letter
-                <span>♥</span>
+            <button id="loveBtn">
+                Why I Love You 💗
             </button>
 
         </div>
@@ -448,12 +621,271 @@
     </section>
 
 
-    <!-- =====================================================
-         5. LOVE LETTER
-    ====================================================== -->
+    <!-- =================================
+         PHOTO VIEWER
+    ================================== -->
 
-    <section id="letter-screen"
-             class="screen">
+    <div id="photoViewer" class="photo-viewer">
+
+        <button
+            id="closeViewer"
+            class="close-viewer"
+        >
+            ✕
+        </button>
+
+        <img
+            id="viewerImage"
+            src=""
+            alt="Memory"
+        >
+
+        <p id="viewerCaption"></p>
+
+    </div>
+
+
+    <!-- =================================
+         WHY I LOVE YOU
+    ================================== -->
+
+    <section id="love-screen" class="screen">
+
+        <div class="content">
+
+            <div class="small-title">
+                A FEW THINGS I LOVE
+            </div>
+
+            <h1>
+                Why I Love You 💗
+            </h1>
+
+            <p class="subtitle">
+                Click the cards.
+            </p>
+
+
+            <div class="love-grid">
+
+                <div class="love-box">
+
+                    <div class="love-front">
+                        <div class="love-icon">👀</div>
+                        <h2>Your Eyes</h2>
+                        <small>Tap me ❤️</small>
+                    </div>
+
+                    <div class="love-back">
+                        <p>
+                            There is something about your eyes
+                            that I can never stop noticing.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="love-box">
+
+                    <div class="love-front">
+                        <div class="love-icon">🥰</div>
+                        <h2>Your Care</h2>
+                        <small>Tap me ❤️</small>
+                    </div>
+
+                    <div class="love-back">
+                        <p>
+                            The way you care about me means
+                            more than you probably realize.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="love-box">
+
+                    <div class="love-front">
+                        <div class="love-icon">🫂</div>
+                        <h2>Your Support</h2>
+                        <small>Tap me ❤️</small>
+                    </div>
+
+                    <div class="love-back">
+                        <p>
+                            You know how to console me
+                            whenever I'm not okay.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="love-box">
+
+                    <div class="love-front">
+                        <div class="love-icon">😊</div>
+                        <h2>Your Smile</h2>
+                        <small>Tap me ❤️</small>
+                    </div>
+
+                    <div class="love-back">
+                        <p>
+                            Your smile can turn an ordinary
+                            moment into something beautiful.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="love-box">
+
+                    <div class="love-front">
+                        <div class="love-icon">🤍</div>
+                        <h2>Your Heart</h2>
+                        <small>Tap me ❤️</small>
+                    </div>
+
+                    <div class="love-back">
+                        <p>
+                            You have a beautiful heart,
+                            and I truly admire that.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="love-box">
+
+                    <div class="love-front">
+                        <div class="love-icon">❤️</div>
+                        <h2>Simply You</h2>
+                        <small>Tap me ❤️</small>
+                    </div>
+
+                    <div class="love-back">
+                        <p>
+                            I love you simply because
+                            you are you.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <button id="rainBtn">
+                Our Rainy Memory 🌧️
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================
+         RAIN
+    ================================== -->
+
+    <section id="rain-screen" class="screen rain-screen">
+
+        <div class="rain">
+
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+
+
+        <div class="moon">
+            🌙
+        </div>
+
+
+        <div class="lake">
+
+            <div class="reflection">
+                🌙
+            </div>
+
+        </div>
+
+
+        <div class="rain-card">
+
+            <div class="small-title">
+                ONE MEMORY I WILL NEVER FORGET
+            </div>
+
+            <div class="rain-icon">
+                🌧️
+            </div>
+
+            <h1>
+                Rabindra Sarobar
+            </h1>
+
+            <div class="rain-divider">
+                ♥
+            </div>
+
+            <p>
+                That day at Rabindra Sarobar...
+            </p>
+
+            <p>
+                Sitting together in the rain
+                and simply spending time with you.
+            </p>
+
+            <p>
+                Nothing extraordinary was happening.
+            </p>
+
+            <p>
+                But somehow, being there with you
+                made that moment incredibly special.
+            </p>
+
+            <p class="rain-highlight">
+                Maybe that's what makes a memory beautiful.
+                <br><br>
+                It's not always the place.
+                <br>
+                It's the person you're with. ❤️
+            </p>
+
+            <button id="letterBtn">
+                Read My Letter 💌
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================
+         LETTER
+    ================================== -->
+
+    <section id="letter-screen" class="screen">
 
         <div class="letter-card">
 
@@ -488,6 +920,9 @@
                     And more than that, I love the way you behave,
                     the way you care, and especially the way you
                     <strong>console me whenever I'm not okay</strong>.
+                </p>
+
+                <p>
                     Sometimes you probably don't even realize
                     how much those little things mean to me.
                 </p>
@@ -513,9 +948,9 @@
                 </p>
 
                 <p>
-                    I know I have things to improve, and I genuinely
-                    want to become a better person — not just for
-                    myself, but for <strong>us</strong>.
+                    I know I have things to improve,
+                    and I genuinely want to become a better person —
+                    not just for myself, but for <strong>us</strong>.
                 </p>
 
                 <p>
@@ -531,11 +966,13 @@
                 </p>
 
                 <p>
-                    I want us to grow together, experience life
-                    together, laugh together, fight less,
-                    understand each other more, and create many
-                    more memories like that rainy day at
-                    Rabindra Sarobar.
+                    I want us to grow together,
+                    experience life together,
+                    laugh together,
+                    fight less,
+                    understand each other more,
+                    and create many more memories like
+                    that rainy day at Rabindra Sarobar.
                 </p>
 
                 <p>
@@ -556,8 +993,7 @@
                 </p>
 
                 <p class="signature">
-                    With all my love,
-                    <br>
+                    With all my love,<br>
                     — Raj ❤️
                 </p>
 
@@ -567,9 +1003,65 @@
             <div class="letter-line"></div>
 
 
-            <button id="finalBtn">
-                One Last Thing
-                <span>♥</span>
+            <button id="secretBtn">
+                Don't Click This 🤫
+            </button>
+
+            <div id="secretMessage" class="secret-message">
+
+                <div class="secret-heart">
+                    ❤️
+                </div>
+
+                <p>
+                    If you found this...
+                </p>
+
+                <p>
+                    I just wanted to remind you that
+                    even when I don't say it perfectly,
+                    you mean a lot to me.
+                </p>
+
+                <p>
+                    And yes...
+                    I still choose you. ❤️
+                </p>
+
+            </div>
+
+
+            <button id="missBtn">
+                Open When You Miss Me 🥺
+            </button>
+
+            <div id="missMessage" class="miss-message">
+
+                <div class="miss-envelope">
+                    💌
+                </div>
+
+                <p>
+                    If you ever miss me,
+                    close your eyes for a second.
+                </p>
+
+                <p>
+                    Remember the laughs.
+                    Remember the rain.
+                    Remember us.
+                </p>
+
+                <p>
+                    And remember that somewhere,
+                    I'm probably thinking about you too. ❤️
+                </p>
+
+            </div>
+
+
+            <button id="questionBtn">
+                One Little Question 🥺
             </button>
 
         </div>
@@ -577,12 +1069,98 @@
     </section>
 
 
-    <!-- =====================================================
-         6. FINAL SCREEN
-    ====================================================== -->
+    <!-- =================================
+         QUESTION
+    ================================== -->
 
-    <section id="final-screen"
-             class="screen">
+    <section id="question-screen" class="screen">
+
+        <div class="card question-card">
+
+            <div class="question-heart">
+                💗
+            </div>
+
+            <div class="small-title">
+                BEFORE THE FINAL SURPRISE
+            </div>
+
+            <h1>
+                One Little Question
+            </h1>
+
+            <p class="question-text">
+                Will you stay beside me and make
+                many more beautiful memories with me?
+            </p>
+
+            <div class="question-buttons">
+
+                <button id="yesBtn">
+                    Yes ❤️
+                </button>
+
+                <button id="yesMoreBtn">
+                    Obviously 🥺
+                </button>
+
+            </div>
+
+            <p id="questionMessage" class="message"></p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================
+         GIFT BOX
+    ================================== -->
+
+    <section id="gift-screen" class="screen">
+
+        <div class="card gift-card">
+
+            <div class="small-title">
+                ONE LAST SURPRISE
+            </div>
+
+            <h1>
+                I Have One More Gift 🎁
+            </h1>
+
+            <div id="giftBox" class="gift-box">
+
+                <div class="gift-lid"></div>
+
+                <div class="gift-body"></div>
+
+                <div class="gift-ribbon-v"></div>
+
+                <div class="gift-ribbon-h"></div>
+
+                <div class="gift-bow">
+                    🎀
+                </div>
+
+            </div>
+
+            <p id="giftText">
+                Tap the gift box ❤️
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================
+         FINAL
+    ================================== -->
+
+    <section id="final-screen" class="screen">
+
+        <div id="fireworks"></div>
 
         <div class="final-card">
 
@@ -590,13 +1168,16 @@
                 ✦　✧　✦
             </div>
 
-            <div class="big-heart final-heart">
+            <div class="final-heart">
                 ❤️
             </div>
 
+            <div class="small-title">
+                MY FINAL MESSAGE
+            </div>
+
             <h1>
-                Happy Birthday,
-                <br>
+                Happy Birthday,<br>
                 Mistu! 🎂
             </h1>
 
@@ -609,15 +1190,16 @@
                 to all the moments still waiting for us...
             </h2>
 
-            <p>
+            <p class="final-main">
                 I want more memories with you. ❤️
             </p>
-
 
             <div class="final-message">
 
                 <p>
-                    Your eyes. Your smile. Your care.
+                    Your eyes.
+                    Your smile.
+                    Your care.
                 </p>
 
                 <p>
@@ -664,28 +1246,22 @@
                 keep me beside you. 🥺❤️
             </div>
 
-
-            <div class="floating-hearts">
+            <div class="final-hearts">
                 ♡　♥　♡　♥　♡
             </div>
 
+            <div class="forever">
+                Forever grateful for you ❤️
+            </div>
 
-            <button id="restartBtn"
-                    class="restart-button">
 
-                See It Again
-                ↻
-
+            <button id="replayBtn">
+                Experience It Again 🔄
             </button>
 
         </div>
 
     </section>
-
-
-    <!-- CONFETTI CONTAINER -->
-
-    <div id="confetti-container"></div>
 
 
     <script src="script.js"></script>
